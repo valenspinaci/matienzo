@@ -8,25 +8,25 @@
         </div>
         <ul class="d-flex col-8  flex-row flex-wrap justify-content-around list-unstyled col-md-12 py-3 py-md-5">
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Todo</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('productos')}}">Todo</a>
             </li>
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Mates</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'mate')}}">Mates</a>
             </li>
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Bombillas</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'bombilla')}}">Bombillas</a>
             </li>
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Termos</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'termo')}}">Termos</a>
             </li>
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Materas</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'matera')}}">Materas</a>
             </li>
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Yerbas</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'yerba')}}">Yerbas</a>
             </li>
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="#">Accesorios</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'accesorio')}}">Accesorios</a>
             </li>
         </ul>
 

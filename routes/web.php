@@ -34,3 +34,5 @@ Route::resources([
     'users' => UserController::class,
     'products' => ProductController::class
 ]);
+
+Route::get('/productos/{category}', [ProductController::class, 'showCategory'])->name('category.show');

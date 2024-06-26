@@ -19,6 +19,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->word(),
             'description' => fake()->sentence(),
+            'category' => fake()->randomElement(['mate', 'bombilla', 'termo', 'matera', 'yerba', 'accesorio']),
             'price' => fake()->numberBetween(1000, 100000),
             'origin' => fake()-> city(),
             'stock' => fake()-> randomDigit(),
