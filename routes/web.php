@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Product;
 
 Route::get('/', function () {
     return view('home');
 })->name('/');
 
 Route::get('/productos', function () {
-    return view('productos');
+    $products = Product::all();
+    return view('productos', compact('products'));
 })->name('productos');
 
 Route::get('/contacto', function () {

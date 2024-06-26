@@ -46,137 +46,21 @@
         </div>
 
         <div class="d-flex col-11 row wrap pt-3 pb-5">
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
 
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
-
-            <div class="col-12 col-md-4 col-lg-3 mb-4">
-                <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                    <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                </div>
-                <h4>Producto 1</h4>
-                <p class="mb-0 w-75">Breve descripción del producto para introducir al cliente</p>
-                <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                <p class="fs-4 fw-semibold">$1234</p>
-                <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
-            </div>
+            @if ($products)
+                @foreach ($products as $product)
+                    <div class="col-12 col-md-4 col-lg-3 mb-4">
+                        <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
+                            <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
+                        </div>
+                        <h4>{{$product->name}}</h4>
+                        <p class="mb-0 w-75">{{$product->description}}</p>
+                        <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
+                        <p class="fs-4 fw-semibold">${{$product->price}}</p>
+                        <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
         <div class="row w-100">
