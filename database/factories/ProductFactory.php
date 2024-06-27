@@ -21,12 +21,10 @@ class ProductFactory extends Factory
             'description' => fake()->sentence(),
             'category' => fake()->randomElement(['mate', 'bombilla', 'termo', 'matera', 'yerba', 'accesorio']),
             'price' => fake()->numberBetween(1000, 100000),
+            'colour' => fake()->colorName(),
             'origin' => fake()-> city(),
             'stock' => fake()-> randomDigit(),
-            'imagen1' => fake()->imageUrl(1000, 1000, 'products', true, 'termo'),
-            'imagen2' => fake()->imageUrl(1000, 1000, 'products', true, 'termo'),
-            'imagen3' => fake()->imageUrl(1000, 1000, 'products', true, 'termo'),
-            'imagen4' => fake()->imageUrl(1000, 1000, 'products', true, 'termo'),
+            'imagen1' => fake()->imageUrl(1000, 1000, 'products', true, 'termo')
         ];
     }
 }

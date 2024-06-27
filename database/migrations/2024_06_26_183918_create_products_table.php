@@ -16,13 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->set('category', ['mate', 'bombilla', 'termo', 'matera', 'yerba', 'accesorio']);
             $table->string('description');
+            $table->string('colour');
             $table->integer('price');
             $table->string('origin');
             $table->integer('stock');
             $table->string('imagen1');
-            $table->string('imagen2');
-            $table->string('imagen3');
-            $table->string('imagen4');
             $table->timestamps();
         });
     }

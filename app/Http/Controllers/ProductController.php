@@ -58,7 +58,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -66,7 +66,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = $request->validate([
+            'name' => 'required|min:3|max:100',
+            'category' => 'required',
+            'price'=> 'required|numeric',
+            'stock'=> 'required|integer',
+            'origin'=> 'required|string',
+            'colour'=> 'required|string',
+            'imagen1'=> 'required|string',
+            'description'=> 'required|string'
+        ]);
+        Product::create($product);
+        return redirect()->route('productos.index');
     }
 
     /**
@@ -82,15 +93,25 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|min:3|max:100',
+            'price'=> 'required|numeric',
+            'stock'=> 'required|integer',
+            'colour'=> 'required|string',
+            'description'=> 'required|string'
+        ]);
+
+        $product->update($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -98,6 +119,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->back();
     }
 }
