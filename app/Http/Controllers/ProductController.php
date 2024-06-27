@@ -16,6 +16,16 @@ class ProductController extends Controller
         return view('productos', compact('products'));
     }
 
+    public function sort($sort)
+    {
+        if(!in_array($sort, ['asc', 'desc'])){
+            $sort = 'asc';
+        }
+
+        $products = Product::orderBy('price', $sort)->get();
+        return view('productos', compact('products'));
+    }
+
     public function showCategory($category)
     {
         $products = Product::where('category', $category)->get();

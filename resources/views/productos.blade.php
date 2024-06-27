@@ -31,16 +31,21 @@
         </ul>
 
         <div class="col-12 d-flex flex-row justify-content-around px-4 px-md-5 py-2 py-md-5">
-            <h4 class="col-6 col-md-8 fs-5">123 productos encontrados en "Todo"</h4>
+            @if ($products->count()>1)
+                <h4 class="col-6 col-md-8 fs-5">{{$products->count()}} productos encontrados</h4>
+            @elseif ($products->count()==1)
+                <h4 class="col-6 col-md-8 fs-5">Un producto encontrado</h4>
+            @else
+                <h4 class="col-6 col-md-8 fs-5">No hay productos</h4>
+            @endif
+
             <div class="dropdown col-6 col-md-4 d-flex flex-row justify-content-end">
                 <button class="btn color-texto-navbar dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Ordenar por
                 </button>
                 <ul class="dropdown-menu background-dropdown">
-                    <li><a class="dropdown-item background-dropdown-item" href="#">menor precio</a></li>
-                    <li><a class="dropdown-item background-dropdown-item" href="#">mayor precio</a></li>
-                    <li><a class="dropdown-item background-dropdown-item" href="#">mayor relevancia</a></li>
-                    <li><a class="dropdown-item background-dropdown-item" href="#">menor relevancia</a></li>
+                    <li><a class="dropdown-item background-dropdown-item" href="{{route('products.sort', ['sort' => 'asc'])}}">menor precio</a></li>
+                    <li><a class="dropdown-item background-dropdown-item" href="{{route('products.sort', ['sort' => 'desc'])}}">mayor precio</a></li>
                 </ul>
             </div>
         </div>
@@ -57,9 +62,17 @@
                         <p class="mb-0 w-75">{{$product->description}}</p>
                         <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
                         <p class="fs-4 fw-semibold">${{$product->price}}</p>
-                        <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('product.detail', $product->id)}}">Ver producto</a></button>
+                        <a class="text-decoration-none color-texto-producto" href="{{route('product.detail', $product->id)}}"><button type="submit" class="btn boton-cta p-2 w-100">Ver producto</button></a>
                     </div>
                 @endforeach
+            @endif
+
+            @if ($products->count()==0)
+                <div class="col-12 col-md-4 col-lg-3 mx-auto d-flex flex-column align-items-center justify-content-center">
+                    <h3>¡Lo sentimos!</h3>
+                    <p>No existen productos de esta categoria</p>
+                    <a class="text-decoration-none color-texto-producto" href="{{url('products')}}"><button type="submit" class="btn boton-cta p-2 w-100">Ver otros</button></a>
+                </div>
             @endif
         </div>
 

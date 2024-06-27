@@ -38,3 +38,4 @@ Route::resources([
 
 Route::get('/productos/{category}', [ProductController::class, 'showCategory'])->name('category.show');
 Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product.detail');
+Route::get('/ordenar/{sort}', [ProductController::class, 'sort'])->name('products.sort');
