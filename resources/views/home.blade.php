@@ -22,51 +22,27 @@
                 <p>
                     Encuentra los diseños mas innovadores, materiales de alta calidad y accesorios imprescindibles para la experiencia mate. Descubre lo mejor del mundo del mate en un lugar.
                 </p>
-                <button type="button" class="btn boton-cta col-6 col-md-4">
-                    Ver todos
-                </button>
+                <a href="{{url('products')}}">
+                    <button type="button" class="btn boton-cta col-6 col-md-4">
+                        Ver todos
+                    </button>
+                </a>
             </div>
 
             <div class="d-flex flex-column flex-md-row justify-content-around col-12 col-lg-8">
-                <div class="w-100 mx-1 px-1 mx-md-2 px-md-2">
-                    <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
-                        <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                    </div>
-                    <h4>Producto 1</h4>
-                    <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
-                    <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                    <p class="fs-4 fw-semibold">$1234</p>
-                </div>
-    
-                <div class="w-100 mx-2 px-2">
-                    <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
-                        <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                    </div>
-                    <h4>Producto 1</h4>
-                    <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
-                    <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                    <p class="fs-4 fw-semibold">$1234</p>
-                </div>
-    
-                <div class="w-100 mx-2 px-2">
-                    <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
-                        <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                    </div>
-                    <h4>Producto 1</h4>
-                    <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
-                    <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                    <p class="fs-4 fw-semibold">$1234</p>
-                </div>
-    
-                <div class="w-100 mx-2 px-2">
-                    <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
-                        <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
-                    </div>
-                    <h4>Producto 1</h4>
-                    <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
-                    <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
-                    <p class="fs-4 fw-semibold">$1234</p>
-                </div>
+                @if ($products)
+                    @foreach ($products as $product)
+                        <div class="w-100 mx-1 px-1 mx-md-2 px-md-2">
+                            <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
+                                <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
+                            </div>
+                            <h4>{{$product->name}} 1</h4>
+                            <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
+                            <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
+                            <p class="fs-4 fw-semibold">$1234</p>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
 

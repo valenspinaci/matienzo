@@ -5,9 +5,10 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 
-Route::get('/', function () {
-    return view('home');
-})->name('/');
+Route::get('/', [ProductController::class, 'home'])->name('/');
+//Route::get('/', function () {
+//    return view('home');
+//})->name('/');
 
 Route::get('/productos', function () {
     //$products = Product::all();

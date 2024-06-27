@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use DB;
 
 class ProductController extends Controller
 {
@@ -14,6 +15,16 @@ class ProductController extends Controller
     {
         $products = Product::all();
         return view('productos', compact('products'));
+    }
+
+    public function home(){
+        $products = Product::select(DB::raw('DISTINCT category'), 'id', 'name', 'description', 'price', 'imagen1')
+        ->inRandomOrder()
+        ->groupBy('category', 'id', 'name', 'description', 'origin', 'price', 'stock', 'imagen1')
+        ->take(4)
+        ->get();
+
+        return view('home', compact('products'));
     }
 
     public function sort($sort)
