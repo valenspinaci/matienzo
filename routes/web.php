@@ -6,15 +6,11 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 
 Route::get('/', [ProductController::class, 'home'])->name('/');
-//Route::get('/', function () {
-//    return view('home');
-//})->name('/');
-
-Route::get('/productos', function () {
-    //$products = Product::all();
-    //return view('productos', compact('products'));
-    return view('productos');
-})->name('productos');
+Route::get('/productos', [ProductController::class, 'index'])->name('productos');
+Route::get('/productos/{category}', [ProductController::class, 'showCategory'])->name('category.show');
+Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product.detail');
+Route::get('/ordenar/{sort}', [ProductController::class, 'sort'])->name('products.sort');
+Route::get('/admin', [ProductController::class, 'admin'])->name('products.admin');
 
 Route::get('/contacto', function () {
     return view('contacto');
@@ -28,15 +24,7 @@ Route::get('/perfil', function () {
     return view('perfil');
 })->name('perfil');
 
-Route::get('/detalle', function () {
-    return view('detalle');
-})->name('detalle');
-
 Route::resources([
     'users' => UserController::class,
     'products' => ProductController::class
 ]);
-
-Route::get('/productos/{category}', [ProductController::class, 'showCategory'])->name('category.show');
-Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product.detail');
-Route::get('/ordenar/{sort}', [ProductController::class, 'sort'])->name('products.sort');

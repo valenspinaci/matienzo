@@ -48,6 +48,11 @@ class ProductController extends Controller
         return view('detalle', compact('product'));
     }
 
+    public function admin(){
+        $products = Product::all();
+        return view('admin', compact('products'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -34,6 +34,9 @@
                             <a class="text-decoration-none color-texto-navbar" href="{{url('perfil')}}">Mi perfil</a>
                         </li>
                         <li class="nav-item mx-2 d-lg-none">
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('admin')}}">Administración</a>
+                        </li>
+                        <li class="nav-item mx-2 d-lg-none">
                             <a class="text-decoration-none color-texto-navbar" href="#">Cerrar sesión</a>
                         </li>
                     </ul>
@@ -45,6 +48,7 @@
                         </a>
                         <ul class="dropdown-menu background-dropdown">
                             <li><a class="dropdown-item background-dropdown-item" href="{{url('perfil')}}">Mi perfil</a></li>
+                            <li><a class="dropdown-item background-dropdown-item" href="{{url('admin')}}">Administración</a></li>
                             <li><a class="dropdown-item background-dropdown-item" href="#">Cerrar sesión</a></li>
                         </ul>
                     </li>
