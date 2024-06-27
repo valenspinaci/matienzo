@@ -22,6 +22,11 @@ class ProductController extends Controller
         return view('productos', compact('products'));
     }
 
+    public function detail($id){
+        $product = Product::find($id);
+        return view('detalle', compact('product'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

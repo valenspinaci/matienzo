@@ -8,7 +8,7 @@
         </div>
         <ul class="d-flex col-8  flex-row flex-wrap justify-content-around list-unstyled col-md-12 py-3 py-md-5">
             <li>
-                <a class="text-decoration-none color-texto-navbar" href="{{route('productos')}}">Todo</a>
+                <a class="text-decoration-none color-texto-navbar" href="{{url('products')}}">Todo</a>
             </li>
             <li>
                 <a class="text-decoration-none color-texto-navbar" href="{{route('category.show', 'mate')}}">Mates</a>
@@ -57,7 +57,7 @@
                         <p class="mb-0 w-75">{{$product->description}}</p>
                         <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
                         <p class="fs-4 fw-semibold">${{$product->price}}</p>
-                        <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('detalle')}}">Ver producto</a></button>
+                        <button type="submit" class="btn boton-cta p-2 w-100"><a class="text-decoration-none color-texto-producto" href="{{route('product.detail', $product->id)}}">Ver producto</a></button>
                     </div>
                 @endforeach
             @endif

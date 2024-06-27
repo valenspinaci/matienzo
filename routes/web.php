@@ -10,8 +10,9 @@ Route::get('/', function () {
 })->name('/');
 
 Route::get('/productos', function () {
-    $products = Product::all();
-    return view('productos', compact('products'));
+    //$products = Product::all();
+    //return view('productos', compact('products'));
+    return view('productos');
 })->name('productos');
 
 Route::get('/contacto', function () {
@@ -36,3 +37,4 @@ Route::resources([
 ]);
 
 Route::get('/productos/{category}', [ProductController::class, 'showCategory'])->name('category.show');
+Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product.detail');

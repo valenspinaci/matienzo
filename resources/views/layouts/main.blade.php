@@ -19,19 +19,19 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item mx-2">
-                            <a class="text-decoration-none color-texto-navbar" aria-current="page" href="{{route('/')}}">Inicio</a>
+                            <a class="text-decoration-none color-texto-navbar" aria-current="page" href="{{url('/')}}">Inicio</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="text-decoration-none color-texto-navbar" href="{{route('productos')}}">Productos</a>
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('products')}}">Productos</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="text-decoration-none color-texto-navbar" href="{{route('contacto')}}">Contacto</a>
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('contacto')}}">Contacto</a>
                         </li>
                         <li class="nav-item mx-2 d-lg-none">
-                            <a class="text-decoration-none color-texto-navbar" href="{{route('carrito')}}">Carrito</a>
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}">Carrito</a>
                         </li>
                         <li class="nav-item mx-2 d-lg-none">
-                            <a class="text-decoration-none color-texto-navbar" href="{{route('perfil')}}">Mi perfil</a>
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('perfil')}}">Mi perfil</a>
                         </li>
                         <li class="nav-item mx-2 d-lg-none">
                             <a class="text-decoration-none color-texto-navbar" href="#">Cerrar sesión</a>
@@ -44,12 +44,12 @@
                             <i class="fa-solid fa-circle fs-4"></i>
                         </a>
                         <ul class="dropdown-menu background-dropdown">
-                            <li><a class="dropdown-item background-dropdown-item" href="{{route('perfil')}}">Mi perfil</a></li>
+                            <li><a class="dropdown-item background-dropdown-item" href="{{url('perfil')}}">Mi perfil</a></li>
                             <li><a class="dropdown-item background-dropdown-item" href="#">Cerrar sesión</a></li>
                         </ul>
                     </li>
                     <li class="nav-item align-self-center mx-2">
-                        <a class="text-decoration-none color-texto-navbar" href="{{route('carrito')}}"><i class="fa-solid fa-cart-shopping"></i></a>
+                        <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}"><i class="fa-solid fa-cart-shopping"></i></a>
                     </li>
                 </ul>
             </div>
