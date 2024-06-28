@@ -36,9 +36,8 @@
                             <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
                                 <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
                             </div>
-                            <h4>{{$product->name}} 1</h4>
+                            <h4>{{ucfirst($product->name)}} 1</h4>
                             <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
-                            <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
                             <p class="fs-4 fw-semibold">$1234</p>
                         </div>
                     @endforeach

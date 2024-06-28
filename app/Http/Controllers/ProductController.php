@@ -45,7 +45,9 @@ class ProductController extends Controller
 
     public function detail($id){
         $product = Product::find($id);
-        return view('detalle', compact('product'));
+        $reviews = $product->reviews;
+        $puntajePromedio = $reviews->avg('rating');
+        return view('detalle', compact('product', 'puntajePromedio'));
     }
 
     public function admin(){

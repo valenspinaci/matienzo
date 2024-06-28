@@ -32,9 +32,14 @@
             <div class="d-flex flex-row col-9">
                 <div class="d-flex flex-row col-6 col-md-9">
                     <i class="fa-solid fa-star me-1"></i>
-                    <p class="col-3 fw-semibold">5.0</p>
+                    <p class="col-3 fw-semibold">{{number_format($puntajePromedio, 1)}}</p>
                 </div>
-                <p class="col-6 col-md-3">25 opiniones</p>
+                @if ($product->reviews->count()>0)
+                    <p class="col-6 col-md-3">{{$product->reviews->count()}} opiniones</p>
+                @else
+                    <p class="col-6 col-md-3">Aun no hay opiniones</p>
+                @endif
+                
             </div>
             <div class="d-flex flex-row col-9">
                 <p class="col-6 col-md-9">15 vendidos</p>

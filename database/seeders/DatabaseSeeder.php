@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
         //]);
 
         User::factory(4)->create();
-        Product::factory(10)->create();
+        Product::factory(20)->create();
         Contact::factory(5)->create();
-        Review::factory(10)->create();
+        Review::factory(60)->create();
     }
 }

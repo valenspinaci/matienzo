@@ -58,9 +58,28 @@
                         <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
                             <img class="mt-2 py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
                         </div>
-                        <h4>{{$product->name}}</h4>
+                        <h4>{{ucfirst($product->name)}}</h4>
                         <p class="mb-0 w-75 card-text">{{$product->description}}</p>
-                        <img class="w-25" src="{{asset('assets/images/5estrellas.png')}}" alt="">
+                        @if ($product->reviews->count() > 0)
+                            @php
+                                $puntajePromedio = $product->reviews->avg('rating');
+                                $imagen = '';
+                                if ($puntajePromedio<=1){
+                                    $imagen = asset('assets/images/1estrellas.png');
+                                }elseif($puntajePromedio>1 && $puntajePromedio<=2){
+                                    $imagen = asset('assets/images/2estrellas.png');
+                                }elseif($puntajePromedio>2 && $puntajePromedio<=3){
+                                    $imagen = asset('assets/images/3estrellas.png');
+                                }elseif($puntajePromedio>3 && $puntajePromedio<=4){
+                                    $imagen = asset('assets/images/4estrellas.png');
+                                }elseif($puntajePromedio>4 && $puntajePromedio<=5){
+                                    $imagen = asset('assets/images/5estrellas.png');
+                                }
+                            @endphp
+                            <img class="w-25" src="{{$imagen}}" alt="">
+                        @else
+                            <img class="w-25" src="{{asset('assets/images/4estrellas.png')}}" alt="">
+                        @endif
                         <p class="fs-4 fw-semibold">${{$product->price}}</p>
                         <a class="text-decoration-none color-texto-producto" href="{{route('product.detail', $product->id)}}"><button type="submit" class="btn boton-cta p-2 w-100">Ver producto</button></a>
                     </div>
