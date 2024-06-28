@@ -154,3 +154,7 @@ body{
 .text-alerta{
     color: #E0E023;
 }
+
+.card-text{
+    flex: 1;
+}

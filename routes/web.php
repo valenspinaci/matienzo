@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 
@@ -25,6 +26,8 @@ Route::get('/carrito', function () {
 Route::get('/perfil', function () {
     return view('perfil');
 })->name('perfil');
+
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::resources([
     'users' => UserController::class,
