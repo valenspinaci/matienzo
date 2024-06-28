@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 
@@ -13,6 +14,8 @@ Route::get('/productos/{category}', [ProductController::class, 'showCategory'])-
 Route::get('/producto/{id}', [ProductController::class, 'detail'])->name('product.detail');
 Route::get('/ordenar/{sort}', [ProductController::class, 'sort'])->name('products.sort');
 Route::get('/admin', [ProductController::class, 'admin'])->name('products.admin');
+Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 
 Route::get('/contacto', function () {

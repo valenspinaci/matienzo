@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Review;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Contact;
@@ -22,7 +23,9 @@ class DatabaseSeeder extends Seeder
         //    'email' => 'test@example.com',
         //]);
 
+        User::factory(4)->create();
         Product::factory(10)->create();
         Contact::factory(5)->create();
+        Review::factory(10)->create();
     }
 }
