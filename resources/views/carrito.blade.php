@@ -1,8 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <!--Main-->
-    <main class="d-flex flex-column">
+<main class="d-flex flex-column">
         <div class="col-12 d-flex justify-content-center align-items-center">
             <img class="col-6" src="{{asset('assets/images/foto-carrito.png')}}" alt="">
         </div>

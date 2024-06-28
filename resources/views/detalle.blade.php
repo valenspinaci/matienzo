@@ -2,7 +2,7 @@
 
 @section('content')
 <!--Main-->
-<main class="mt-4 d-flex flex-column align-items-center">
+<main class="mt-4 d-flex flex-column">
     <div class="col-12 d-none d-lg-flex flex-row justify-content-between">
         <div class="col-6 d-flex justify-content-center">
             <p class="col-9">Todos/{{ucfirst($product->category)}}</p>
@@ -70,56 +70,58 @@
         </div>
     </div>
 
-    <div class="col-10 d-flex flex-column align-items-center">
-        <div class="col-12 mb-3 d-flex flex-column">
-            <h3>Opiniones</h3>
-            @foreach ($product->reviews as $review)
-                <div class="d-flex flex-column col-12 review-border rounded p-2 mb-3">
-                    <div class="col-10">
-                        <img class="col-1" src="
-                            @if ($review->rating <= 1)
-                                {{asset('assets/images/1estrellas.png')}}
-                            @elseif ($review->rating > 1 && $review->rating <= 2)
-                                {{asset('assets/images/2estrellas.png')}}
-                            @elseif ($review->rating > 2 && $review->rating <= 3)
-                                {{asset('assets/images/3estrellas.png')}}
-                            @elseif ($review->rating > 3 && $review->rating <= 4)
-                                {{asset('assets/images/4estrellas.png')}}
-                            @elseif ($review->rating > 4 && $review->rating <= 5)
-                                {{asset('assets/images/5estrellas.png')}}
-                            @endif
-                        " alt="{{$review->rating}}">
+    <div class="col-12 d-flex flex-column align-items-center">
+        <div class="col-10 d-flex flex-column align-items-center">
+            <div class="col-12 mb-3 d-flex flex-column">
+                <h3>Opiniones</h3>
+                @foreach ($product->reviews as $review)
+                    <div class="d-flex flex-column col-12 review-border rounded p-2 mb-3">
+                        <div class="col-10">
+                            <img class="col-4 col-md-2 col-lg-1" src="
+                                    @if ($review->rating <= 1)
+                                        {{asset('assets/images/1estrellas.png')}}
+                                    @elseif ($review->rating > 1 && $review->rating <= 2)
+                                        {{asset('assets/images/2estrellas.png')}}
+                                    @elseif ($review->rating > 2 && $review->rating <= 3)
+                                        {{asset('assets/images/3estrellas.png')}}
+                                    @elseif ($review->rating > 3 && $review->rating <= 4)
+                                        {{asset('assets/images/4estrellas.png')}}
+                                    @elseif ($review->rating > 4 && $review->rating <= 5)
+                                        {{asset('assets/images/5estrellas.png')}}
+                                    @endif
+                                " alt="{{$review->rating}}">
+                        </div>
+                        <div class="col-12">
+                            <p>{{ $review->comment }}</p>
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <p>{{ $review->comment }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
 
-        <div class="col-12 mb-3 d-flex flex-column">
-            <!-- Formulario de opiniones -->
-            <h3>Nueva opinion</h3>
-            <form class="col-12 mb-3" action="{{ route('reviews.store', $product->id) }}" method="POST">
-                @csrf
-                <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
-                <div class="mb-3">
-                    <label for="comment" class="form-label">Comentario:</label>
-                    <textarea class="form-control inputs-background" id="comment" name="comment"
-                        required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Rating:</label>
-                    <select class="form-control inputs-background" id="rating" name="rating" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn boton-cta p-2 w-100">Enviar</button>
-            </form>
+            <div class="col-12 mb-3 d-flex flex-column">
+                <!-- Formulario de opiniones -->
+                <h3>Nueva opinion</h3>
+                <form class="col-12 mb-3" action="{{ route('reviews.store', $product->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                    <div class="mb-3">
+                        <label for="comment" class="form-label">Comentario:</label>
+                        <textarea class="form-control inputs-background" id="comment" name="comment"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rating:</label>
+                        <select class="form-control inputs-background" id="rating" name="rating" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn boton-cta p-2 w-100">Enviar</button>
+                </form>
+            </div>
         </div>
     </div>
     @endsection
