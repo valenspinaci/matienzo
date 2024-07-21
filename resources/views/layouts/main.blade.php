@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <title>Matienzo</title>
 </head>
@@ -33,40 +34,71 @@
                         <li class="nav-item mx-2">
                             <a class="text-decoration-none color-texto-navbar" href="{{url('contacto')}}">Contacto</a>
                         </li>
-                        <li class="nav-item mx-2 d-lg-none">
-                            <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}">Carrito</a>
-                        </li>
-                        <li class="nav-item mx-2 d-lg-none">
-                            <a class="text-decoration-none color-texto-navbar" href="{{url('perfil')}}">Mi perfil</a>
-                        </li>
-                        <li class="nav-item mx-2 d-lg-none">
-                            <a class="text-decoration-none color-texto-navbar"
-                                href="{{url('admin')}}">Administración</a>
-                        </li>
-                        <li class="nav-item mx-2 d-lg-none">
-                            <a class="text-decoration-none color-texto-navbar" href="#">Cerrar sesión</a>
-                        </li>
+                        @if (auth()->check())
+                            <li class="nav-item mx-2 d-lg-none">
+                                <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}">Carrito</a>
+                            </li>
+                            <li class="nav-item mx-2 d-lg-none">
+                                <a class="text-decoration-none color-texto-navbar" href="{{url('perfil')}}">Mi perfil</a>
+                            </li>
+                            @if (auth()->user()->role == 'admin')
+                                <li class="nav-item mx-2 d-lg-none">
+                                    <a class="text-decoration-none color-texto-navbar"
+                                        href="{{url('admin')}}">Administración</a>
+                                </li>
+                            @endif
+                            <li class="nav-item mx-2 d-lg-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                <a class="text-decoration-none color-texto-navbar" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Cerrar sesión
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
-                <ul class="navbar-nav mx-2 d-none d-lg-flex flex-row">
-                    <li class="nav-item dropdown align-self-center">
-                        <a class="nav-link dropdown-toggle color-texto-navbar " href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-circle fs-4"></i>
-                        </a>
-                        <ul class="dropdown-menu background-dropdown">
-                            <li><a class="dropdown-item background-dropdown-item" href="{{url('perfil')}}">Mi perfil</a>
-                            </li>
-                            <li><a class="dropdown-item background-dropdown-item"
-                                    href="{{url('admin')}}">Administración</a></li>
-                            <li><a class="dropdown-item background-dropdown-item" href="#">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item align-self-center mx-2">
-                        <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}"><i
-                                class="fa-solid fa-cart-shopping"></i></a>
-                    </li>
-                </ul>
+                @if (auth()->check())
+                    <ul class="navbar-nav mx-2 d-none d-lg-flex flex-row">
+                        <li class="nav-item dropdown align-self-center">
+                            <a class="nav-link dropdown-toggle color-texto-navbar " href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-circle fs-4"></i>
+                            </a>
+                            <ul class="dropdown-menu background-dropdown">
+                                <li><a class="dropdown-item background-dropdown-item" href="{{url('perfil')}}">Mi perfil</a>
+                                </li>
+                                @if (auth()->user()->role == 'admin')
+                                    <li>
+                                        <a class="dropdown-item background-dropdown-item"href="{{url('admin')}}">Administración</a>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <a class="dropdown-item background-dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Cerrar sesión
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item align-self-center mx-2">
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}"><i
+                                    class="fa-solid fa-cart-shopping"></i></a>
+                        </li>
+                    </ul>
+                @else
+                    <ul class="navbar-nav">
+                        <li class="nav-item mx-2 gap-3 d-none d-lg-flex">
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('login')}}">Iniciar sesión</a>
+                            <a class="text-decoration-none color-texto-navbar" href="{{url('register')}}">Registrarse</a>
+                        </li>
+                    </ul>
+                @endif
             </div>
         </nav>
     </header>
