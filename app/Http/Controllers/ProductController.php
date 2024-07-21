@@ -24,7 +24,7 @@ class ProductController extends Controller
         ->take(4)
         ->get();
 
-        return view('home', compact('products'));
+        return view('inicio', compact('products'));
     }
 
     public function sort($sort)
@@ -79,7 +79,7 @@ class ProductController extends Controller
             'description'=> 'required|string'
         ]);
         Product::create($product);
-        return redirect()->route('productos.index');
+        return redirect()->route('products.index');
     }
 
     /**

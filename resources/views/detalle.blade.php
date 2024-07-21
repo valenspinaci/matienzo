@@ -52,7 +52,7 @@
                 </p>
             </div>
             <div class="d-flex flex-column col-9 align-items-center justify-content-center">
-                <p class="col-12">Color: <span class="fw-semibold">Marron</span></p>
+                <p class="col-12">Color: <span class="fw-semibold">{{$product->colour}}</span></p>
             </div>
             <div class="d-flex flex-column col-9 justify-content-center">
                 <p class="col-12">Descripcion:</p>
