@@ -84,6 +84,10 @@ body{
     background-color: #28201D;
 }
 
+.contenedor-resumen{
+    background-color: #E0E023;
+}
+
 .contenedor-claro{
     background-color: #322A27;
 }
@@ -156,16 +160,20 @@ body{
     border-top: 2px solid #E0E023;
 }
 
+.borde-resumen{
+    border: 2px solid #E0E023;
+}
+
 .borde-producto-horizontal{
     border-top: 2px solid #E0E023;
     border-bottom: 2px solid #E0E023;
-    border-radius: 1rem;
+    border-radius: .5rem;
 }
 
 .borde-producto-vertical{
     border-right: 2px solid #E0E023;
     border-left: 2px solid #E0E023;
-    border-radius: 1rem;
+    border-radius: .5rem;
 }
 
 .text-alerta{

@@ -34,13 +34,16 @@
                         <li class="nav-item mx-2">
                             <a class="text-decoration-none color-texto-navbar" href="{{url('contacto')}}">Contacto</a>
                         </li>
+                        
                         @if (auth()->check())
-                            <li class="nav-item mx-2 d-lg-none">
-                                <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}">Carrito</a>
-                            </li>
-                            <li class="nav-item mx-2 d-lg-none">
-                                <a class="text-decoration-none color-texto-navbar" href="{{url('perfil')}}">Mi perfil</a>
-                            </li>
+                            @if (auth()->user()->role == 'user')
+                                <li class="nav-item mx-2 d-lg-none">
+                                    <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}">Carrito</a>
+                                </li>
+                                <li class="nav-item mx-2 d-lg-none">
+                                    <a class="text-decoration-none color-texto-navbar" href="{{url('perfil')}}">Mi perfil</a>
+                                </li>
+                            @endif
                             @if (auth()->user()->role == 'admin')
                                 <li class="nav-item mx-2 d-lg-none">
                                     <a class="text-decoration-none color-texto-navbar"
@@ -57,39 +60,46 @@
                                 </a>
                             </li>
                         @endif
+
                     </ul>
                 </div>
+                
                 @if (auth()->check())
-                    <ul class="navbar-nav mx-2 d-none d-lg-flex flex-row">
-                        <li class="nav-item dropdown align-self-center">
-                            <a class="nav-link dropdown-toggle color-texto-navbar " href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-circle fs-4"></i>
-                            </a>
-                            <ul class="dropdown-menu background-dropdown">
-                                <li><a class="dropdown-item background-dropdown-item" href="{{url('perfil')}}">Mi perfil</a>
-                                </li>
-                                @if (auth()->user()->role == 'admin')
-                                    <li>
-                                        <a class="dropdown-item background-dropdown-item"href="{{url('admin')}}">Administración</a>
-                                    </li>
-                                @endif
-
+                    <div class="btn-group dropstart d-none d-lg-flex">
+                        <button type="button" class="btn bg-transparent color-texto-navbar dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Menú
+                        </button>
+                        <ul class="dropdown-menu background-dropdown">
+                            @if (auth()->user()->role == 'user')
                                 <li>
-                                    <a class="dropdown-item background-dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        Cerrar sesión
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                                    <a class="dropdown-item background-dropdown-item" href="{{url('perfil')}}">Mi perfil</a>
                                 </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item align-self-center mx-2">
-                            <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}"><i
-                                    class="fa-solid fa-cart-shopping"></i></a>
-                        </li>
+                            @endif
+                            @if (auth()->user()->role == 'admin')
+                                <li>
+                                    <a class="dropdown-item background-dropdown-item"href="{{url('admin')}}">Administración</a>
+                                </li>
+                            @endif
+
+                            <li>
+                                <a class="dropdown-item background-dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Cerrar sesión
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul class="navbar-nav mx-2 d-none d-lg-flex flex-row">
+                        @if (auth()->user()->role == 'user')
+                            <li class="nav-item align-self-center mx-2">
+                                <a class="text-decoration-none color-texto-navbar" href="{{url('carrito')}}">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 @else
                     <ul class="navbar-nav">
@@ -126,7 +136,9 @@
                     <p class="col-lg-4">Consultános por alguno de nuestros canales y nuestro equipo te asesorará de la
                         mejor
                         manera para mejorar tu experiencia mate.</p>
-                    <button type="button" class="btn boton-cta boton-footer col-12 col-md-4">Contactanos</button>
+                        <a class="col-12 col-md-4" href="{{url('contacto')}}">
+                            <button type="button" class="btn boton-cta boton-footer col-12">Contactanos</button>
+                        </a>
                 </div>
             </div>
             <hr>
@@ -188,5 +200,4 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 </body>
-
 </html>

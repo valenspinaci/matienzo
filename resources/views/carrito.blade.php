@@ -44,7 +44,8 @@
                     <div class="sector-angosto col-3">
                         <div class="col-12 p-3 contenedor-oscuro rounded">
                             <h4>Resumen</h4>
-                            <div class="borde-producto-horizontal pt-2 d-flex flex-row justify-content-between">
+                            <hr class="col-12 borde-resumen">
+                            <div class=" pt-2 d-flex flex-row justify-content-between">
                                 <p>Productos</p>
                                 <p>${{ array_sum($items->map(fn($item) => $item->product->price * $item->quantity)->toArray()) }}</p>
                             </div>

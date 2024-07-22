@@ -7,7 +7,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Product;
 
 Route::get('/', [ProductController::class, 'home'])->name('/');
 Route::get('/productos', [ProductController::class, 'index'])->name('productos');
@@ -19,15 +18,11 @@ Route::get('/contacto', function () {
     return view('contacto');
 })->name('contacto');
 
-//Route::get('/carrito', function () {
-//    return view('carrito');
-//})->name('carrito');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::get('/perfil', function () {
     return view('perfil');
 })->name('perfil');
-
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::resources([
     'users' => UserController::class,
@@ -48,6 +43,7 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/perfil', [UserController::class, 'profile'])->name('perfil');
     Route::post('/perfil/update', [UserController::class, 'updateProfile'])->name('users.updateProfile');
+
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });
