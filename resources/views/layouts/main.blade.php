@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-matienzo.png') }}">
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     <title>Matienzo</title>
 </head>
@@ -106,11 +106,11 @@
     <!--Contenido-->
     @yield('content')
 
-    <div class="row w-100">
-            <div class="contenedor-redes h-50 d-flex justify-content-center align-items-center gap-5 py-5">
-                <i class="fa-brands fa-twitter fs-1 redes"></i>
-                <i class="fa-brands fa-instagram fs-1 redes"></i>
-                <i class="fa-brands fa-facebook fs-1 redes"></i>
+    <div class="row w-100 m-0">
+            <div class="contenedor-redes h-50 d-flex justify-content-center align-items-center gap-5 py-5 w-100">
+                <a href="https://x.com/home"><i class="fa-brands fa-twitter fs-1 redes"></i></a>
+                <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram fs-1 redes"></i></a>
+                <a href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2F%3Flocale%3Des_LA"><i class="fa-brands fa-facebook fs-1 redes"></i></a>
             </div>
         </div>
 

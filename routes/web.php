@@ -41,6 +41,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [ProductController::class, 'admin'])->name('products.admin');
     Route::post('/productos', [ProductController::class, 'store'])->name('productos.store');
+    Route::get('/perfil', [UserController::class, 'profile'])->name('perfil');
+    Route::post('/perfil/update', [UserController::class, 'updateProfile'])->name('users.updateProfile');
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });

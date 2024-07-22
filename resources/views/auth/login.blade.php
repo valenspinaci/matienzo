@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container bg-dark">
-    <div class="row justify-content-center bg-dark">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header text-bg-dark">{{ __('Inicio de sesion') }}</div>
+<div class="container fondo-app text-light">
+    <div class="row justify-content-center fondo-app text-light">
+        <div class="col-md-8 fondo-app">
+            <div class="card bg-transparent border-light">
+                <div class="card-header bg-transparent border-light text-light">{{ __('Inicio de sesion') }}</div>
 
-                <div class="card-body text-bg-dark">
+                <div class="card-body fondo-app text-light ">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -15,7 +15,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control text-bg-dark @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control bg-transparent text-light @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Contraseña') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control text-bg-dark @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control bg-transparent text-light @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

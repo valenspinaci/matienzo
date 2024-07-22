@@ -15,6 +15,11 @@ class UserController extends Controller
         $users = User::all();
     }
 
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('perfil', compact('user'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -53,6 +58,22 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        
+        $data = $request->validate([
+            'name' => 'required|min:3|max:50',
+            'lastname'=> 'required|string|min:2|max:50',
+            'phone'=> 'required|string|min:3|max:50',
+            'email'=> 'required|string|max:100'
+        ]);
+
+        $user->update($data);
+
+        return redirect()->route('perfil');
     }
 
     /**
