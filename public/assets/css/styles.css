@@ -152,12 +152,20 @@ body{
     color: #28201D;
 }
 
+.borde-producto-arriba{
+    border-top: 2px solid #E0E023;
+}
+
 .borde-producto-horizontal{
     border-top: 2px solid #E0E023;
+    border-bottom: 2px solid #E0E023;
+    border-radius: 1rem;
 }
 
 .borde-producto-vertical{
     border-right: 2px solid #E0E023;
+    border-left: 2px solid #E0E023;
+    border-radius: 1rem;
 }
 
 .text-alerta{

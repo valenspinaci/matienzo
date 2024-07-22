@@ -13,8 +13,9 @@
         </div>
     </div>
 
-    <div class="d-lg-none col-12 d-flex flex-column align-items-center my-2">
-        <h2 class="col-9">{{ucfirst($product->name)}}</h2>
+    <div class="d-lg-none col-10 d-flex flex-column px-5 my-2">
+        <h2>{{ucfirst($product->name)}}</h2>
+        <h2>${{($product->price)}}</h2>
     </div>
 
     <div class="d-flex flex-column flex-lg-row">
@@ -29,6 +30,8 @@
 
         <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start">
             <h2 class="d-none d-lg-flex">{{ucfirst($product->name)}}</h2>
+            <h2 class="d-none d-lg-flex fw-bold">${{$product->price}}</h2>
+            <hr class="col-9 border border-1 border-warning">
             <div class="d-flex flex-row col-9">
                 <div class="d-flex flex-row col-6 col-md-9">
                     <i class="fa-solid fa-star me-1"></i>
@@ -58,20 +61,20 @@
                 <p class="col-12">Descripcion:</p>
                 <p class="fw-bold">{{$product->description}}</p>
             </div>
-            <div class="d-flex flex-column mt-2 col-3">
-                <div class="mb-3">
+            <form action="{{ route('cart.add') }}" method="POST">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                <div class="mb-3 col-12">
                     <label for="cantidad" class="form-label">Cantidad:</label>
-                    <input name="cantidad" type="number" class="form-control" id="exampleFormControlInput1"
-                        placeholder="Quedan {{$product->stock}} unidades">
+                    <input name="quantity" type="number" class="form-control" id="cantidad"
+                            min="1" max="{{ $product->stock }}" placeholder="Quedan {{ $product->stock }} unidades" required>
                 </div>
-            </div>
-            <div class="col-9 mt-2 mb-5">
-                <div class="col-12 d-flex flex-row gap-2">
-                    <button type="submit" class="btn boton-cta p-2 col-6"><i
-                            class="fa-solid fa-cart-shopping"></i>Agregar al carrito</button>
-                    <button type="submit" class="btn boton-cta p-2 col-6">Comprar ahora</button>
+                <div class="col-12 mt-2 mb-5">
+                    <div class="col-12 d-flex flex-row gap-2">
+                        <button type="submit" class="btn boton-cta p-2 col-12"><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -109,20 +112,22 @@
                 <form class="col-12 mb-3" action="{{ route('reviews.store', $product->id) }}" method="POST">
                     @csrf
                     <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
-                    <div class="mb-3">
-                        <label for="comment" class="form-label">Comentario:</label>
-                        <textarea class="form-control inputs-background" id="comment" name="comment"
-                            required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rating:</label>
-                        <select class="form-control inputs-background" id="rating" name="rating" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                    <div class="col-12 gap-2 d-flex flex-row justify-content-between">
+                        <div class="mb-3 col-9">
+                            <label for="comment" class="form-label">Comentario:</label>
+                            <textarea class="form-control inputs-background" id="comment" name="comment"
+                                required></textarea>
+                        </div>
+                        <div class="mb-3 col-2">
+                            <label for="rating" class="form-label">Puntaje:</label>
+                            <select class="form-control inputs-background" id="rating" name="rating" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
                     </div>
                     <button type="submit" class="btn boton-cta p-2 w-100">Enviar</button>
                 </form>

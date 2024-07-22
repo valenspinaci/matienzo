@@ -14,7 +14,7 @@
 
             @if ($products)
                 @foreach ($products as $product)
-                    <div class="accordion col-12 mt-3" id="accordion{{$product->id}}">
+                    <div class="accordion col-12 my-3" id="accordion{{$product->id}}">
                         <div class="accordion-item bg-transparent color-texto-admin">
                             <h2 class="accordion-header bg-transparent">
                                 <button class="accordion-button bg-transparent collapsed" type="button"

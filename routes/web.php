@@ -19,9 +19,9 @@ Route::get('/contacto', function () {
     return view('contacto');
 })->name('contacto');
 
-Route::get('/carrito', function () {
-    return view('carrito');
-})->name('carrito');
+//Route::get('/carrito', function () {
+//    return view('carrito');
+//})->name('carrito');
 
 Route::get('/perfil', function () {
     return view('perfil');
@@ -41,6 +41,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function(){
     Route::get('/admin', [ProductController::class, 'admin'])->name('products.admin');
     Route::post('/productos', [ProductController::class, 'store'])->name('productos.store');
+
+    Route::post('/carrito', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/carrito', [CartController::class, 'viewCart'])->name('carrito');
+    Route::post('/carrito/vaciar', [CartController::class, 'clearCart'])->name('cart.clear');
+
     Route::get('/perfil', [UserController::class, 'profile'])->name('perfil');
     Route::post('/perfil/update', [UserController::class, 'updateProfile'])->name('users.updateProfile');
     Route::post('/products/{product}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
