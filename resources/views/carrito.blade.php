@@ -24,8 +24,12 @@
                         <div class="col-12 contenedor-oscuro rounded d-flex flex-row p-3">
                             <div class="d-flex flex-column align-items-between borde-producto-horizontal borde-producto-vertical col-12">
                                 <div class="d-flex flex-row justify-content-between">
-                                    <div class="d-flex flex-row align-items-center col-4">                        
-                                        <img src="{{ asset('assets/images/termo.png') }}" alt="" class="col-4 pt-2">
+                                    <div class="d-flex flex-row align-items-center col-4">    
+                                        @if ($item->imagen1)
+                                            <img src="{{ asset('storage'.$item->imagen1)}}" alt="" class="col-4 pt-2">
+                                        @else
+                                            <p>No hay una imagen</p>
+                                        @endif                    
                                         <h4>{{ $item->product->name }}</h4>
                                     </div>
                                     <div class="d-flex flex-row align-items-center justify-content-end col-4 pe-3">

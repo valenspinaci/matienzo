@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('origin');
             $table->integer('stock');
-            $table->string('imagen1');
+            $table->text('imagen1');
             $table->timestamps();
         });
     }

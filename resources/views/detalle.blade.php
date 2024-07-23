@@ -20,7 +20,12 @@
 
     <div class="d-flex flex-column flex-lg-row">
         <div class="col-12 col-lg-6 d-flex flex-column flex-lg-row-reverse align-items-center">
-            <img class="col-12 col-lg-10" src="{{asset('assets/images/termo.png')}}" alt="Principal-Producto">
+            @if ($product->imagen1)
+                <img class="col-12 col-lg-10" src="{{asset('storage/'.$product->imagen1)}}" alt="Principal-Producto">
+            @else
+                <img class="col-12 col-lg-10" src="{{asset('assets/images/favicon-matienzo.png')}}" alt="Principal-Producto">
+            @endif
+            
             <div class="col-12 col-lg-2 d-flex flex-row flex-lg-column justify-content-around">
                 <img class="col-4 col-lg-12" src="{{asset('assets/images/termo.png')}}" alt="Producto2">
                 <img class="col-4 col-lg-12" src="{{asset('assets/images/termo.png')}}" alt="Producto3">

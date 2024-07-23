@@ -17,6 +17,7 @@ class CartController extends Controller
 
         $productId = $request->input('product_id');
         $quantity = $request->input('quantity');
+        $product = Product::find($productId);
 
         $cartItem = CartItem::where('cart_id', $cart->id)
             ->where('product_id', $productId)
@@ -29,7 +30,8 @@ class CartController extends Controller
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $productId,
-                'quantity' => $quantity
+                'quantity' => $quantity,
+                'imagen1'=>$product->imagen1
             ]);
         }
 

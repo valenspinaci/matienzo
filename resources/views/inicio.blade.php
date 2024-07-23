@@ -34,7 +34,11 @@
                     @foreach ($products as $product)
                         <div class="w-100 mx-1 px-1 mx-md-2 px-md-2">
                             <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
-                                <img class=" py-3 w-75" src="{{asset('assets/images/termo.png')}}" alt="">
+                                @if ($product->imagen1)
+                                    <img class=" py-3 w-75" src="{{'storage/'.$product->imagen1}}" alt="">
+                                @else
+                                    <p>No hay imagen</p>
+                                @endif
                             </div>
                             <h4>{{ucfirst($product->name)}} 1</h4>
                             <p class="mb-0">Breve descripción del producto para introducir al cliente</p>

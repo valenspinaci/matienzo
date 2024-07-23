@@ -68,19 +68,34 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = $request->validate([
+        // Validar los datos del producto
+        $validatedData = $request->validate([
             'name' => 'required|min:3|max:100',
             'category' => 'required',
-            'price'=> 'required|numeric',
-            'stock'=> 'required|integer',
-            'origin'=> 'required|string',
-            'colour'=> 'required|string',
-            'imagen1'=> 'required|string',
-            'description'=> 'required|string'
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'origin' => 'required|string',
+            'colour' => 'required|string',
+            'imagen1' => 'required|image|mimes:jpeg,jpg,png,svg|max:2048',
+            'description' => 'required|string'
         ]);
-        Product::create($product);
+    
+        // Crear el producto
+        $product = Product::create([
+            'name' => $validatedData['name'],
+            'category' => $validatedData['category'],
+            'price' => $validatedData['price'],
+            'stock' => $validatedData['stock'],
+            'origin' => $validatedData['origin'],
+            'colour' => $validatedData['colour'],
+            'description' => $validatedData['description'],
+            'imagen1' => $request->hasFile('imagen1') ? $request->file('imagen1')->store('products', 'public') : null,
+        ]);
+    
+        // Redirigir a la lista de productos
         return redirect()->route('products.index');
     }
+    
 
     /**
      * Display the specified resource.
