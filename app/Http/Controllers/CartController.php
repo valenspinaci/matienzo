@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -54,5 +55,26 @@ class CartController extends Controller
         }
 
         return redirect()->route('carrito')->with('success', 'Carrito vaciado');
+    }
+
+    public function buy(Request $request) {
+        $user = auth()->user();
+        $cart = Cart::where('user_id', $user->id)->first();
+        DB::transaction(function() use ($request) {
+            foreach ($request->items as $item) {
+                $product = Product::find($item['product_id']);
+                $quantity = $item['quantity'];
+
+                if ($product->stock >= $quantity) {
+                    $product->stock -= $quantity;
+                    $product->save();
+                } else {
+                    throw new \Exception('Stock insuficiente para el producto: ' . $product->name);
+                }
+            }
+        });
+
+        $cart->items()->delete();
+        return redirect()->route('carrito');
     }
 }

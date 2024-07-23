@@ -187,3 +187,8 @@ body{
 .review-border{
     border: 1px solid #ffe8a8;
 }
+
+.boton-close{
+    color: #E0E023;
+    opacity: 1;
+}
