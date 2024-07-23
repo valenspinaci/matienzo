@@ -57,14 +57,13 @@
                     <div class="h-auto col-12 col-md-4 col-lg-3 mb-4">
                         <div class="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
                             @if ($product->imagen1)
-                                <img class="mt-2 py-3 w-75" src="{{'storage/'.$product->imagen1}}" alt="">
+                                <img class="mt-2 py-3 w-75" src="{{asset('storage/'.$product->imagen1)}}" alt="">
                             @else
                                 <img class="mt-2 py-3 w-75" src="{{asset('assets/images/favicon-matienzo.png')}}" alt="">
                             @endif
                             
                         </div>
                         <h4>{{ucfirst($product->name)}}</h4>
-                        <p class="mb-0 w-75 card-text">{{$product->description}}</p>
                         @if ($product->reviews->count() > 0)
                             @php
                                 $puntajePromedio = $product->reviews->avg('rating');

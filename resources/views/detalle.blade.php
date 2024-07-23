@@ -25,12 +25,6 @@
             @else
                 <img class="col-12 col-lg-10" src="{{asset('assets/images/favicon-matienzo.png')}}" alt="Principal-Producto">
             @endif
-            
-            <div class="col-12 col-lg-2 d-flex flex-row flex-lg-column justify-content-around">
-                <img class="col-4 col-lg-12" src="{{asset('assets/images/termo.png')}}" alt="Producto2">
-                <img class="col-4 col-lg-12" src="{{asset('assets/images/termo.png')}}" alt="Producto3">
-                <img class="col-4 col-lg-12" src="{{asset('assets/images/termo.png')}}" alt="Producto4">
-            </div>
         </div>
 
         <div class="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start">
@@ -50,7 +44,7 @@
                 
             </div>
             <div class="d-flex flex-row col-9">
-                <p class="col-6 col-md-9">15 vendidos</p>
+                <p class="col-6 col-md-9">{{rand(1,100)}} vendidos</p>
                 <p class="col-6 col-md-3 text-alerta">
                     @if ($product->stock > 0)
                         En stock

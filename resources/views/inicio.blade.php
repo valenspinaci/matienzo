@@ -40,7 +40,7 @@
                                     <p>No hay imagen</p>
                                 @endif
                             </div>
-                            <h4>{{ucfirst($product->name)}} 1</h4>
+                            <h4>{{ucfirst($product->name)}}</h4>
                             <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
                             <p class="fs-4 fw-semibold">$1234</p>
                         </div>

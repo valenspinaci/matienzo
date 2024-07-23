@@ -26,7 +26,7 @@
                                 <div class="d-flex flex-row justify-content-between">
                                     <div class="d-flex flex-row align-items-center col-4">    
                                         @if ($item->imagen1)
-                                            <img src="{{ asset('storage'.$item->imagen1)}}" alt="" class="col-4 pt-2">
+                                            <img src="{{ asset('storage/'.$item->imagen1)}}" alt="" class="col-4 pt-2">
                                         @else
                                             <p>No hay una imagen</p>
                                         @endif                    

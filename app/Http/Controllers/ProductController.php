@@ -77,7 +77,7 @@ class ProductController extends Controller
             'origin' => 'required|string',
             'colour' => 'required|string',
             'imagen1' => 'required|image|mimes:jpeg,jpg,png,svg|max:2048',
-            'description' => 'required|string'
+            'description' => 'required|string|max:500'
         ]);
     
         // Crear el producto

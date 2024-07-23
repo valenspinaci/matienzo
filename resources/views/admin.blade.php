@@ -22,7 +22,7 @@
                                     aria-controls="collapse{{$product->id}}">
                                     <div class=" col-8 pt-2 d-flex flex-row gap-4 color-texto-admin align-items-center">
                                         @if ($product->imagen1)
-                                            <img class="col-4 col-md-2" src="{{'storage'.$product->imagen1}}" alt="">
+                                            <img class="col-4 col-md-2" src="{{asset('storage/'.$product->imagen1)}}" alt="">
                                         @else
                                             <p>No hay imagen</p>
                                         @endif
