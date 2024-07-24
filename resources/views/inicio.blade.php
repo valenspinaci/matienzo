@@ -29,20 +29,18 @@
                 </a>
             </div>
 
-            <div class="d-flex flex-column flex-md-row justify-content-around col-12 col-lg-8">
+            <div class="d-flex flex-column flex-md-row justify-content-around col-12 col-lg-7 mb-3">
                 @if ($products)
                     @foreach ($products as $product)
-                        <div class="w-100 mx-1 px-1 mx-md-2 px-md-2">
-                            <div class="w-100 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
+                        <div class="w-100 mx-1 px-1 mx-md-2 px-md-2 d-flex flex-column align-items-center justify-content-center">
+                            <div class="col-8 col-lg-12 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
                                 @if ($product->imagen1)
                                     <img class=" py-3 w-75" src="{{'storage/'.$product->imagen1}}" alt="">
                                 @else
                                     <p>No hay imagen</p>
                                 @endif
                             </div>
-                            <h4>{{ucfirst($product->name)}}</h4>
-                            <p class="mb-0">Breve descripción del producto para introducir al cliente</p>
-                            <p class="fs-4 fw-semibold">$1234</p>
+                            <h4 class="fw-semibold">{{ucfirst($product->name)}}</h4>
                         </div>
                     @endforeach
                 @endif
@@ -53,12 +51,12 @@
             <h2>
                 Nosotros
             </h2>
-            <div class="d-flex flex-column flex-lg-row col-12">
+            <div class="d-flex flex-column flex-lg-row gap-2 col-12">
                 <div class="col-12 col-lg-6">
                     <h3>
                         ¿Quiénes somos?
                     </h3>
-                    <p class="col-12 px-lg-2">
+                    <p class="col-12">
                         Somos apasionados del mate, dedicados a llevar la autenticidad y la excelencia a cada sorbo. Nuestra misión es ofrecerte no solo productos de calidad, sino también una experiencia única y enriquecedora en cada momento compartido con nuestro mate. Descubre quiénes somos y únete a nuestra comunidad de amantes del mate.
                     </p>
                 </div>
@@ -66,7 +64,7 @@
                     <h3>
                         ¿Cómo surgimos?
                     </h3>
-                    <p class="col-12 px-lg-2">
+                    <p class="col-12">
                         Surgimos en 2023 a partir de nuestra pasión compartida por el mate y el deseo de ofrecer a otros esa misma experiencia enriquecedora. Inspirados en la tradición y la innovación, creamos este espacio para compartir lo mejor del mundo del mate. Nuestra historia es la búsqueda constante de calidad, autenticidad y conexión a través de esta bebida tan especial.
                     </p>
                 </div>

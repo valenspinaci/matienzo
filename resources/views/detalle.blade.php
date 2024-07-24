@@ -66,7 +66,7 @@
                 <div class="mb-3 col-12">
                     <label for="cantidad" class="form-label">Cantidad:</label>
                     <input name="quantity" type="number" class="form-control" id="cantidad"
-                            min="1" max="{{ $product->stock }}" placeholder="Quedan {{ $product->stock }} unidades" required>
+                            min="1" max="{{ $product->stock }}" placeholder="{{ $product->stock }} disponibles" required>
                 </div>
                 <div class="col-12 mt-2 mb-5">
                     <div class="col-12 d-flex flex-row gap-2">
