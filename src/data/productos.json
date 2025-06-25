@@ -1,0 +1,20 @@
+[
+    {
+    "id": 1,
+    "nombre": "Mate Imperial",
+    "descripcion": "Mate de calabaza forrado en cuero",
+    "precio": 4200,
+    "imagen": "termo.png",
+    "categoria": "mates",
+    "calificaciones": [5, 4, 5]
+    },
+    {
+    "id": 2,
+    "nombre": "Bombilla curva",
+    "descripcion": "De acero inoxidable",
+    "precio": 1200,
+    "imagen": "termo.png",
+    "categoria": "bombillas",
+    "calificaciones": [4, 3]
+    }
+]
