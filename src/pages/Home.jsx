@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { obtenerProductos } from "../models/productoModel";
+import ProductoCard from "../components/ProductoCard";
 import fotoInicio from "../assets/img/foto-inicio.png";
 
 const Home = () => {
@@ -12,7 +13,6 @@ const Home = () => {
 
     return (
         <>
-            {/* Hero */}
             <div className="vh-100 w-100 d-flex flex-column justify-content-center align-items-center">
                 <div className="row h-75 col-12 d-flex justify-content-center align-items-center">
                     <div className="flex-column col-12 col-md-10 col-lg-9 d-flex justify-content-center align-items-center">
@@ -31,7 +31,6 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Productos en tendencia */}
             <div className="contenedor-oscuro h-100 d-flex flex-column flex-lg-row justify-content-around px-4 col-12">
                 <div className="my-0 pb-5 col-12 col-lg-4 d-flex flex-column justify-content-around">
                     <h2>Nuestros productos en tendencia</h2>
@@ -48,24 +47,7 @@ const Home = () => {
                 <div className="d-flex flex-column flex-md-row justify-content-around col-12 col-lg-7 mb-3">
                     {productos.length > 0 ? (
                         productos.slice(0, 3).map((product) => (
-                            <div
-                                key={product.id}
-                                className="w-100 mx-1 px-1 mx-md-2 px-md-2 d-flex flex-column align-items-center justify-content-center"
-                            >
-                                <div className="col-8 col-lg-12 contenedor-oscuro d-flex flex-row justify-content-center rounded mb-2">
-                                    {product.imagen ? (
-                                        <img
-                                            className="py-3 w-75"
-                                            src={`/img/${product.imagen}`}
-                                            alt={product.nombre}
-                                        />
-
-                                    ) : (
-                                        <p>No hay imagen</p>
-                                    )}
-                                </div>
-                                <h4 className="fw-semibold">{product.nombre}</h4>
-                            </div>
+                            <ProductoCard key={product.id} producto={product} />
                         ))
                     ) : (
                         <p>Cargando productos...</p>
@@ -73,7 +55,6 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Nosotros */}
             <div className="h-100 p-5 d-flex flex-column justify-content-around contenedor-claro">
                 <h2>Nosotros</h2>
                 <div className="d-flex flex-column flex-lg-row gap-5 col-12">

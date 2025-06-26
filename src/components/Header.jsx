@@ -39,7 +39,6 @@ const Header = () => {
                                 </Link>
                             </li>
 
-                            {/* Ítems extra en mobile */}
                             <li className="nav-item mx-2 d-lg-none">
                                 <Link className="text-decoration-none color-texto-navbar" to="/carrito">
                                     Carrito
@@ -63,7 +62,6 @@ const Header = () => {
                         </ul>
                     </div>
 
-                    {/* Dropdown y carrito en desktop */}
                     <div className="btn-group dropstart d-none d-lg-flex">
                         <button
                             type="button"
@@ -77,6 +75,11 @@ const Header = () => {
                             <li>
                                 <Link className="dropdown-item background-dropdown-item" to="/perfil">
                                     Mi perfil
+                                </Link>
+                            </li>
+                            <li>
+                                <Link className="dropdown-item background-dropdown-item" to="/carrito">
+                                    Carrito
                                 </Link>
                             </li>
                             <li>

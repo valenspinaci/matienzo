@@ -1,30 +1,58 @@
 import { useEffect, useState } from "react";
 import { obtenerProductos } from "../models/productoModel";
 import { Link } from 'react-router-dom';
+import ProductoCard from '../components/ProductoCard';
 import fotoProductos from '../assets/img/foto-productos.png';
 
 const Productos = () => {
-
     const [productos, setProductos] = useState([]);
+    const [categoria, setCategoria] = useState('todos');
+    const [orden, setOrden] = useState('default');
 
     useEffect(() => {
         obtenerProductos().then(setProductos);
     }, []);
 
-    const renderCalificacion = (rating) => {
-        if (rating <= 1) return '/img/1estrellas.png';
-        if (rating <= 2) return '/img/2estrellas.png';
-        if (rating <= 3) return '/img/3estrellas.png';
-        if (rating <= 4) return '/img/4estrellas.png';
-        return '/img/5estrellas.png';
-    }
-
     const contadorProductos = () => {
-        const count = productos.length;
+        const count = filtrarYOrdenar().length;
         if (count > 1) return `${count} productos encontrados`;
         if (count === 1) return 'Un producto encontrado';
         return 'No hay productos';
     };
+
+    const filtrarYOrdenar = () => {
+        let resultado = [...productos];
+
+        if (categoria !== 'todos') {
+            resultado = resultado.filter(p => p.categoria.toLowerCase() === categoria);
+        }
+
+        switch (orden) {
+            case 'precio-asc':
+                resultado.sort((a, b) => a.precio - b.precio);
+                break;
+            case 'precio-desc':
+                resultado.sort((a, b) => b.precio - a.precio);
+                break;
+            case 'nombre-asc':
+                resultado.sort((a, b) => a.nombre.localeCompare(b.nombre));
+                break;
+            case 'nombre-desc':
+                resultado.sort((a, b) => b.nombre.localeCompare(a.nombre));
+                break;
+            case 'calificacion':
+                resultado.sort((a, b) => {
+                    const promA = a.calificaciones.reduce((x, y) => x + y, 0) / a.calificaciones.length;
+                    const promB = b.calificaciones.reduce((x, y) => x + y, 0) / b.calificaciones.length;
+                    return promB - promA;
+                });
+                break;
+        }
+
+        return resultado;
+    };
+
+    const productosFiltrados = filtrarYOrdenar();
 
     return (
         <div>
@@ -33,15 +61,24 @@ const Productos = () => {
             </div>
 
             <ul className="d-flex col-8 flex-row flex-wrap justify-content-around list-unstyled col-md-12 py-3 py-md-5">
-                {['Todo', 'Mates', 'Bombillas', 'Termos', 'Materas', 'Yerbas', 'Accesorios'].map((cat, i) => {
-                    const slug = cat.toLowerCase();
-                    const href = cat === 'Todo' ? '/products' : `/category/${slug}`;
-                    return (
-                        <li key={i}>
-                            <Link className="text-decoration-none color-texto-navbar" to={href}>{cat}</Link>
-                        </li>
-                    );
-                })}
+                {[
+                    { label: 'Todo', value: 'todos' },
+                    { label: 'Mates', value: 'mates' },
+                    { label: 'Bombillas', value: 'bombillas' },
+                    { label: 'Termos', value: 'termos' },
+                    { label: 'Materas', value: 'materas' },
+                    { label: 'Yerbas', value: 'yerbas' },
+                    { label: 'Accesorios', value: 'accesorios' }
+                ].map(({ label, value }, i) => (
+                    <li key={i}>
+                        <button
+                            className={`btn btn-link text-decoration-none ${categoria === value ? 'fw-bold' : ''} color-texto-navbar`}
+                            onClick={() => setCategoria(value)}
+                        >
+                            {label}
+                        </button>
+                    </li>
+                ))}
             </ul>
 
             <div className="col-12 d-flex flex-row justify-content-around px-4 px-md-5 py-2 py-md-5">
@@ -53,53 +90,41 @@ const Productos = () => {
                     </button>
                     <ul className="dropdown-menu background-dropdown">
                         <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => onSort('asc')}>menor precio</button>
+                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('precio-asc')}>Menor precio</button>
                         </li>
                         <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => onSort('desc')}>mayor precio</button>
+                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('precio-desc')}>Mayor precio</button>
+                        </li>
+                        <li>
+                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('nombre-asc')}>Nombre A-Z</button>
+                        </li>
+                        <li>
+                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('nombre-desc')}>Nombre Z-A</button>
+                        </li>
+                        <li>
+                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('calificacion')}>Mejor calificados</button>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div className="d-flex col-11 row wrap pt-3 pb-5">
-                {productos.length > 0 ? (
-                    productos.map((producto) => (
-                        <div key={producto.id} className="h-auto col-12 col-md-4 col-lg-3 mb-4">
-                            <div className="w-100 contenedor-claro d-flex flex-row justify-content-center rounded mb-2">
-                                <img
-                                    className="mt-2 py-3 w-75"
-                                    src={`/img/${producto.imagen}`}
-                                    alt=""
-                                />
-                            </div>
-                            <h4>{producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1)}</h4>
-                            <img
-                                className="w-25"
-                                src={producto.calificaciones?.length > 0 ? renderCalificacion(
-                                    producto.calificaciones.reduce((acc, r) => acc + r, 0) / producto.calificaciones.length
-                                ) : '/assets/images/4estrellas.png'}
-                                alt=""
-                            />
-                            <p className="fs-4 fw-semibold">${producto.precio}</p>
-                            <Link className="text-decoration-none color-texto-producto" to={`/producto/${producto.id}`}>
-                                <button className="btn boton-cta p-2 w-100">Ver producto</button>
-                            </Link>
-                        </div>
+            <div className="d-flex col-11 row wrap pt-3 pb-5 mx-auto">
+                {productosFiltrados.length > 0 ? (
+                    productosFiltrados.map(producto => (
+                        <ProductoCard key={producto.id} producto={producto} />
                     ))
                 ) : (
                     <div className="col-12 col-md-4 col-lg-3 mx-auto d-flex flex-column align-items-center justify-content-center">
                         <h3>¡Lo sentimos!</h3>
                         <p>No existen productos de esta categoría</p>
-                        <Link className="text-decoration-none color-texto-producto" to="/products">
+                        <Link className="text-decoration-none color-texto-producto" to="/productos">
                             <button className="btn boton-cta p-2 w-100">Ver otros</button>
                         </Link>
                     </div>
                 )}
             </div>
-
         </div>
     );
-}
+};
 
 export default Productos;
