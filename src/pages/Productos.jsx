@@ -1,31 +1,21 @@
 import { useEffect, useState } from "react";
-import { obtenerProductos } from "../models/productoModel";
+import { filtrarPorCategoria } from "../models/productoModel";
 import { Link } from 'react-router-dom';
 import ProductoCard from '../components/ProductoCard';
 import fotoProductos from '../assets/img/foto-productos.png';
 
 const Productos = () => {
-    const [productos, setProductos] = useState([]);
+    const [productosOriginales, setProductosOriginales] = useState([]);
+    const [productosFiltrados, setProductosFiltrados] = useState([]);
     const [categoria, setCategoria] = useState('todos');
     const [orden, setOrden] = useState('default');
 
     useEffect(() => {
-        obtenerProductos().then(setProductos);
-    }, []);
+        filtrarPorCategoria(categoria).then(setProductosOriginales);
+    }, [categoria]);
 
-    const contadorProductos = () => {
-        const count = filtrarYOrdenar().length;
-        if (count > 1) return `${count} productos encontrados`;
-        if (count === 1) return 'Un producto encontrado';
-        return 'No hay productos';
-    };
-
-    const filtrarYOrdenar = () => {
-        let resultado = [...productos];
-
-        if (categoria !== 'todos') {
-            resultado = resultado.filter(p => p.categoria.toLowerCase() === categoria);
-        }
+    useEffect(() => {
+        let resultado = [...productosOriginales];
 
         switch (orden) {
             case 'precio-asc':
@@ -49,10 +39,15 @@ const Productos = () => {
                 break;
         }
 
-        return resultado;
-    };
+        setProductosFiltrados(resultado);
+    }, [productosOriginales, orden]);
 
-    const productosFiltrados = filtrarYOrdenar();
+    const contadorProductos = () => {
+        const count = productosFiltrados.length;
+        if (count > 1) return `${count} productos encontrados`;
+        if (count === 1) return 'Un producto encontrado';
+        return 'No hay productos';
+    };
 
     return (
         <div>
@@ -89,21 +84,11 @@ const Productos = () => {
                         Ordenar por
                     </button>
                     <ul className="dropdown-menu background-dropdown">
-                        <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('precio-asc')}>Menor precio</button>
-                        </li>
-                        <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('precio-desc')}>Mayor precio</button>
-                        </li>
-                        <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('nombre-asc')}>Nombre A-Z</button>
-                        </li>
-                        <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('nombre-desc')}>Nombre Z-A</button>
-                        </li>
-                        <li>
-                            <button className="dropdown-item background-dropdown-item" onClick={() => setOrden('calificacion')}>Mejor calificados</button>
-                        </li>
+                        <li><button className="dropdown-item" onClick={() => setOrden('precio-asc')}>Menor precio</button></li>
+                        <li><button className="dropdown-item" onClick={() => setOrden('precio-desc')}>Mayor precio</button></li>
+                        <li><button className="dropdown-item" onClick={() => setOrden('nombre-asc')}>Nombre A-Z</button></li>
+                        <li><button className="dropdown-item" onClick={() => setOrden('nombre-desc')}>Nombre Z-A</button></li>
+                        <li><button className="dropdown-item" onClick={() => setOrden('calificacion')}>Mejor calificados</button></li>
                     </ul>
                 </div>
             </div>

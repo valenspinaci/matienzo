@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { obtenerProductos } from "../models/productoModel";
+import { obtenerDestacados } from "../models/productoModel";
 import ProductoCard from "../components/ProductoCard";
 import fotoInicio from "../assets/img/foto-inicio.png";
 
@@ -8,7 +8,7 @@ const Home = () => {
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        obtenerProductos().then(setProductos);
+        obtenerDestacados().then(setProductos);
     }, []);
 
     return (

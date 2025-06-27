@@ -13,10 +13,11 @@ const Carrito = () => {
     const envioPorItem = carrito.length > 0 ? Math.round(envioFijo / carrito.length) : 0
 
     return (
-        <div className="container my-5">
+        <div className='my-5'>
             <div className="col-12 d-flex justify-content-center align-items-center">
                 <img className="col-6" src={fotoCarrito} alt="Carrito" />
             </div>
+
 
             {carrito.length === 0 ? (
                 <div className="d-flex justify-content-center align-items-center mt-5">

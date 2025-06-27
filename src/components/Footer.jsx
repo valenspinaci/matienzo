@@ -8,7 +8,6 @@ const Footer = () => {
     return (
         <footer className="mt-4">
             <div className="mx-5">
-                {/* Pregunta + CTA */}
                 <div className="d-flex flex-column flex-md-row align-items-md-center">
                     <h3 className="col-12 col-md-4 col-lg-4">¿Tenés alguna duda?</h3>
                     <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center col-12 col-md-8 col-lg-8">
@@ -23,9 +22,7 @@ const Footer = () => {
 
                 <hr />
 
-                {/* Info general */}
                 <div className="col-12 d-flex flex-row flex-wrap">
-                    {/* Links */}
                     <div className="col-6 col-md-4">
                         <h4>Links</h4>
                         <ul className="list-unstyled d-flex flex-column gap-2">
@@ -36,7 +33,6 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Redes sociales */}
                     <div className="col-12 col-md-4 px-md-3">
                         <h4>Redes Sociales</h4>
                         <ul className="d-flex flex-row list-unstyled gap-4 justify-content-between col-lg-8">
@@ -49,7 +45,6 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Datos */}
                     <div className="col-6 col-md-4">
                         <h4>Datos</h4>
                         <ul className="list-unstyled d-flex flex-column gap-2">
@@ -59,7 +54,6 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Mapa */}
                     <div className="col-12 mt-2">
                         <h4>Ubicación</h4>
                         <iframe
@@ -77,7 +71,6 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Términos */}
             <div className="d-flex flex-column flex-md-row gap-md-5 align-items-center justify-content-center mt-3">
                 <p>Políticas de cookies</p>
                 <p>Términos y condiciones</p>
