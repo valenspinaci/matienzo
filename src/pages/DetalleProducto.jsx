@@ -1,20 +1,20 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
-import { obtenerProductos } from '../models/productoModel'
 import { CartContext } from '../context/CartContext'
+import { ProductContext } from '../context/ProductContext'
 
 const DetalleProducto = () => {
     const { id } = useParams()
-    const [producto, setProducto] = useState(null)
-    const [cantidad, setCantidad] = useState(1)
+    const { productos } = useContext(ProductContext)
     const { agregarAlCarrito } = useContext(CartContext)
 
+    const [producto, setProducto] = useState(null)
+    const [cantidad, setCantidad] = useState(1)
+
     useEffect(() => {
-        obtenerProductos().then(productos => {
-            const encontrado = productos.find(p => p.id === parseInt(id))
-            setProducto(encontrado)
-        })
-    }, [id])
+        const encontrado = productos.find(p => p.id === parseInt(id))
+        setProducto(encontrado)
+    }, [id, productos])
 
     if (!producto) return <p className="container my-5">Cargando producto...</p>
 
@@ -36,14 +36,14 @@ const DetalleProducto = () => {
 
     return (
         <div className="container my-5">
-
+            
             <div className="row d-none d-lg-flex justify-content-between">
                 <div className="col-6">
                     <p>Todos / {producto.categoria.charAt(0).toUpperCase() + producto.categoria.slice(1)}</p>
                 </div>
                 <div className="col-6 d-flex justify-content-end">
                     <p className="me-4">ID Producto: {producto.id}</p>
-                    <p>Origen: {producto.origen}</p>
+                    <p>Origen: {producto.origen || 'Argentina'}</p>
                 </div>
             </div>
 
@@ -68,7 +68,9 @@ const DetalleProducto = () => {
                             <p className="fw-semibold mb-0">{promedio.toFixed(1)}</p>
                         </div>
                         <p className="mb-0">
-                            {producto.reviews?.length > 0 ? `${producto.reviews.length} opiniones` : 'Aún no hay opiniones'}
+                            {producto.reviews?.length > 0
+                                ? `${producto.reviews.length} opiniones`
+                                : 'Aún no hay opiniones'}
                         </p>
                     </div>
 
@@ -150,4 +152,4 @@ const DetalleProducto = () => {
     )
 }
 
-export default DetalleProducto;
+export default DetalleProducto
