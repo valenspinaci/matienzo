@@ -54,7 +54,7 @@ const DetalleProducto = () => {
 
             <div className="row d-flex flex-column flex-lg-row">
                 <div className="col-12 col-lg-6 d-flex justify-content-center mb-4">
-                    <img className="img-fluid col-lg-10" src={`/img/${producto.imagen}`} alt={producto.nombre} />
+                    <img className="img-fluid" src={`/img/${producto.imagen}`} alt={producto.nombre} />
                 </div>
 
                 <div className="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start">
@@ -76,8 +76,8 @@ const DetalleProducto = () => {
 
                     <div className="d-flex col-9 justify-content-between mt-2">
                         <p className="mb-0">{producto.vendidos || Math.floor(Math.random() * 100)} vendidos</p>
-                        <p className={`mb-0 ${producto.stock > 0 ? '' : 'text-danger'}`}>
-                            {producto.stock > 0 ? 'En stock' : 'No hay stock'}
+                        <p className={`mb-0 ${producto.stock > 0 ? '' : 'text-success'}`}>
+                            {producto.stock > 0 ? 'En stock' : 'En stock'}
                         </p>
                     </div>
 

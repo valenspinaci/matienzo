@@ -8,7 +8,8 @@ import Admin from '../pages/Admin';
 import DetalleProducto from '../pages/DetalleProducto';
 import Carrito from '../pages/Carrito';
 import Login from '../pages/Login';
-import { AuthContext } from '../context/AuthContext'
+import CrearProducto from '../pages/CrearProducto';
+import { AuthContext } from '../context/AuthContext';
 
 
 const AppRouter = () => {
@@ -24,6 +25,14 @@ const AppRouter = () => {
             <Route path='/perfil' element={<Perfil />} />
             <Route path='/carrito' element={<Carrito />} />
             <Route path='/login' element={<Login />} />
+            <Route
+                path='/admin/crear'
+                element={
+                    usuario?.rol === 'admin'
+                        ? <CrearProducto/>
+                        : <Navigate to='/' replace/>
+                }
+                />
             <Route
                 path="/admin"
                 element={

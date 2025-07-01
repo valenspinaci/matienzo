@@ -20,7 +20,7 @@ const Header = () => {
         <header>
             <nav className="navbar navbar-expand-lg bg-body-transparent">
                 <div className="container-fluid mx-3">
-                    <Link className="navbar-brand text-decoration-none color-texto-navbar" to="/">
+                    <Link className="text-decoration-none color-texto-navbar me-5" to="/">
                         matienzo
                     </Link>
 
