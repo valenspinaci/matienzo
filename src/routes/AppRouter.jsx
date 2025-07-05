@@ -41,6 +41,7 @@ const AppRouter = () => {
                         : <Navigate to="/" replace />
                 }
             />
+            <Route path="*" element={<h3 className='text-center py-5 my-5'>Error 404 - Página no encontrada</h3>}/>
         </Routes>
     )
 };
