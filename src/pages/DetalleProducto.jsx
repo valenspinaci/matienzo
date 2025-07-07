@@ -2,11 +2,14 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { ProductContext } from '../context/ProductContext'
+import { AuthContext } from '../context/AuthContext'
+import { toast } from 'react-toastify';
 
 const DetalleProducto = () => {
     const { id } = useParams()
     const { productos } = useContext(ProductContext)
     const { agregarAlCarrito } = useContext(CartContext)
+    const { usuario } = useContext(AuthContext);
 
     const [producto, setProducto] = useState(null)
     const [cantidad, setCantidad] = useState(1)
@@ -31,12 +34,18 @@ const DetalleProducto = () => {
     }
 
     const handleAgregar = () => {
-        agregarAlCarrito({ ...producto, cantidad })
+        if (!usuario || usuario.rol !== 'cliente') {
+            toast.error('Debés iniciar sesión para agregar al carrito');
+            return;
+        }
+
+        agregarAlCarrito({ ...producto, cantidad });
+        toast.success('Producto agregado al carrito');
     }
 
     return (
         <div className="container my-5">
-            
+
             <div className="row d-none d-lg-flex justify-content-between">
                 <div className="col-6">
                     <p>Todos / {producto.categoria.charAt(0).toUpperCase() + producto.categoria.slice(1)}</p>
@@ -90,26 +99,32 @@ const DetalleProducto = () => {
                         <p className="fw-bold">{producto.descripcion}</p>
                     </div>
 
-                    <div className="col-9 mt-3 mb-4">
-                        <label htmlFor="cantidad" className="form-label">Cantidad:</label>
-                        <input
-                            type="number"
-                            id="cantidad"
-                            className="form-control"
-                            min="1"
-                            max={producto.stock}
-                            value={cantidad}
-                            onChange={e => setCantidad(parseInt(e.target.value))}
-                            placeholder={`${producto.stock} disponibles`}
-                            required
-                        />
-                    </div>
+                    {usuario?.rol !== 'admin' &&
+                        (
+                            <div className="col-9 mt-3 mb-4">
+                                <label htmlFor="cantidad" className="form-label">Cantidad:</label>
+                                <input
+                                    type="number"
+                                    id="cantidad"
+                                    className="form-control"
+                                    min="1"
+                                    max={producto.stock}
+                                    value={cantidad}
+                                    onChange={e => setCantidad(parseInt(e.target.value))}
+                                    placeholder={`${producto.stock} disponibles`}
+                                    required
+                                />
+                            </div>
+                        )}
 
-                    <div className="col-9 mb-5 d-flex gap-2">
-                        <button className="btn boton-cta p-2 w-100" onClick={handleAgregar}>
-                            <i className="fa-solid fa-cart-shopping"></i> Agregar al carrito
-                        </button>
-                    </div>
+                    {usuario?.rol !== 'admin' && (
+                        <div className="col-9 mb-5 d-flex gap-2">
+                            <button className="btn boton-cta p-2 w-100" onClick={handleAgregar}>
+                                <i className="fa-solid fa-cart-shopping"></i> Agregar al carrito
+                            </button>
+                        </div>
+                    )}
+
                 </div>
             </div>
 

@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import productosJSON from "../data/productos.json"
+import { toast } from "react-toastify"
 
 export const ProductContext = createContext()
 
@@ -29,16 +30,19 @@ export const ProductProvider = ({ children }) => {
         const idNuevo = Math.max(...productos.map(p => p.id)) + 1
         const producto = { ...nuevoProducto, id: idNuevo }
         setProductos(prev => [...prev, producto])
+        toast.success('Producto creado correctamente');
     }
 
     const editarProducto = (id, data) => {
         setProductos(prev =>
             prev.map(p => (p.id === id ? { ...p, ...data } : p))
         )
+        toast.success('Producto actualizado');
     }
 
     const eliminarProducto = (id) => {
         setProductos(prev => prev.filter(p => p.id !== id))
+        toast.success('Producto eliminado');
     }
 
     return (

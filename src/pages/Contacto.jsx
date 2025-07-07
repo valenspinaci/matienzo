@@ -1,6 +1,32 @@
+import { useState } from "react";
+import { toast } from "react-toastify";
 import fotoContacto from "../assets/img/foto-contacto.png";
 
 const Contacto = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        lastname: '',
+        mail: '',
+        comment: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        toast.success('Mensaje enviado correctamente');
+        setFormData({
+            name: '',
+            lastname: '',
+            mail: '',
+            comment: ''
+        });
+    };
+
     return (
         <div>
             <div className="col-12 d-flex justify-content-center align-items-center">
@@ -8,7 +34,7 @@ const Contacto = () => {
             </div>
 
             <div className="col-12 d-flex flex-column justify-content-center align-items-center mb-5">
-                <form className="col-10 col-md-6 col-lg-4">
+                <form className="col-10 col-md-6 col-lg-4" onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Nombre</label>
                         <input
@@ -16,6 +42,8 @@ const Contacto = () => {
                             className="form-control inputs-background"
                             id="name"
                             name="name"
+                            value={formData.name}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -27,6 +55,8 @@ const Contacto = () => {
                             className="form-control inputs-background"
                             id="lastname"
                             name="lastname"
+                            value={formData.lastname}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -38,6 +68,8 @@ const Contacto = () => {
                             className="form-control inputs-background"
                             id="mail"
                             name="mail"
+                            value={formData.mail}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -49,6 +81,8 @@ const Contacto = () => {
                             id="comment"
                             name="comment"
                             rows="3"
+                            value={formData.comment}
+                            onChange={handleChange}
                             required
                         ></textarea>
                     </div>

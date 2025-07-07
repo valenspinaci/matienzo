@@ -1,6 +1,8 @@
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AppRouter from './routes/AppRouter';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -8,6 +10,7 @@ function App() {
       <Header/>
       <main>
         <AppRouter/>
+        <ToastContainer position="top-right" autoClose={3000} />
       </main>
       <Footer/>
     </>
