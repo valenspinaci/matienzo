@@ -1,23 +1,91 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import fotoPerfil from '../assets/img/foto-perfil.png'
+import { toast } from 'react-toastify'
 
 const Perfil = () => {
     const { usuario, logout } = useContext(AuthContext)
+    const [loading, setLoading] = useState(true)
+    const [nombre, setNombre] = useState('')
+    const [apellido, setApellido] = useState('')
+    const [email, setEmail] = useState('')
+    const [telefono, setTelefono] = useState('')
 
-    const [nombre, setNombre] = useState(usuario?.nombre || '')
-    const [apellido, setApellido] = useState(usuario?.apellido || '')
-    const [email, setEmail] = useState(usuario?.email || '')
-    const [telefono, setTelefono] = useState(usuario?.telefono || '')
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem('token')
+                if (!token) {
+                    toast.error("No se encontró token, por favor inicia sesión")
+                    setLoading(false)
+                    return
+                }
 
-    const handleSubmit = (e) => {
+                const res = await fetch(`http://localhost:3001/api/users/perfil`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+
+                if (!res.ok) {
+                    const errorData = await res.json()
+                    throw new Error(errorData.message || 'Error al cargar perfil')
+                }
+
+                const data = await res.json()
+                setNombre(data.nombre)
+                setApellido(data.apellido)
+                setEmail(data.email)
+                setTelefono(data.telefono)
+            } catch (err) {
+                console.error('Error en fetchUserData:', err)
+                toast.error(err.message || "Error al conectarse con el servidor")
+            } finally {
+                setLoading(false)
+            }
+        }
+
+
+        if (usuario?.id) {
+            fetchUserData()
+        }
+    }, [usuario])
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        const actualizado = { ...usuario, nombre, apellido, email, telefono }
-        localStorage.setItem('usuario', JSON.stringify(actualizado))
-        alert('Perfil actualizado (simulado)')
+
+        try {
+            const token = localStorage.getItem('token')
+
+            const res = await fetch(`http://localhost:3001/api/users/perfil`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    nombre,
+                    apellido,
+                    email,
+                    telefono
+                })
+            })
+
+            const data = await res.json()
+
+            if (res.ok) {
+                toast.success("Perfil actualizado con éxito")
+            } else {
+                toast.error(data?.msg || "No se pudo actualizar el perfil")
+            }
+        } catch (err) {
+            console.error(err)
+            toast.error("Error al actualizar")
+        }
     }
 
     if (!usuario) return <p className="container my-5">Debés iniciar sesión</p>
+    if (loading) return <p className="container my-5">Cargando datos del perfil...</p>
 
     return (
         <>
@@ -69,7 +137,7 @@ const Perfil = () => {
                                     type="tel"
                                     className="form-control inputs-background"
                                     id="telefono"
-                                    value={telefono}
+                                    value={telefono || ''}
                                     onChange={(e) => setTelefono(e.target.value)}
                                 />
                             </div>
