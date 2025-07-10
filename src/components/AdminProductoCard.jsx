@@ -43,6 +43,20 @@ const AdminProductoCard = ({
                                 onChange={(e) => onChange('precio', e.target.value)}
                             />
 
+                            <label className="form-label mt-3">Categoría</label>
+                            <input
+                                className="form-control inputs-background"
+                                value={producto.categoria || ''}
+                                onChange={(e) => onChange('categoria', e.target.value)}
+                            />
+
+                            <label className="form-label mt-3">Imagen (nombre de archivo)</label>
+                            <input
+                                className="form-control inputs-background"
+                                value={producto.imagen || ''}
+                                onChange={(e) => onChange('imagen', e.target.value)}
+                            />
+
                             <label className="form-label mt-3">Color</label>
                             <input
                                 className="form-control inputs-background"
@@ -65,6 +79,13 @@ const AdminProductoCard = ({
                                 className="form-control inputs-background"
                                 value={producto.stock || 0}
                                 onChange={(e) => onChange('stock', e.target.value)}
+                            />
+
+                            <label className="form-label mt-3">Origen</label>
+                            <input
+                                className="form-control inputs-background"
+                                value={producto.origen || ''}
+                                onChange={(e) => onChange('origen', e.target.value)}
                             />
 
                             <button

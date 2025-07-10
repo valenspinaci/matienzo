@@ -13,17 +13,33 @@ const DetalleProducto = () => {
 
     const [producto, setProducto] = useState(null)
     const [cantidad, setCantidad] = useState(1)
+    const [opiniones, setOpiniones] = useState([]);
+    const [comentario, setComentario] = useState('');
+    const [calificacion, setCalificacion] = useState(5);
 
     useEffect(() => {
-        const encontrado = productos.find(p => p.id === parseInt(id))
-        setProducto(encontrado)
-    }, [id, productos])
+        const fetchData = async () => {
+            try {
+                const resProducto = await fetch(`http://localhost:3001/api/productos/${id}`);
+                const productoData = await resProducto.json();
+                setProducto(productoData);
+
+                const resOpiniones = await fetch(`http://localhost:3001/api/opiniones/${id}`);
+                const opinionesData = await resOpiniones.json();
+                setOpiniones(opinionesData);
+            } catch (error) {
+                console.error('Error al cargar datos del producto', error);
+                toast.error('No se pudo cargar el producto');
+            }
+        };
+
+        fetchData();
+    }, [id]);
+
 
     if (!producto) return <p className="container my-5">Cargando producto...</p>
 
-    const promedio = producto.calificaciones?.length > 0
-        ? producto.calificaciones.reduce((a, b) => a + b, 0) / producto.calificaciones.length
-        : 4
+    const promedio = opiniones.length > 0 ? opiniones.reduce((sum, op) => sum + op.calificacion, 0) / opiniones.length : 0;
 
     const renderCalificacion = (rating) => {
         if (rating <= 1) return '/img/1estrellas.png'
@@ -40,8 +56,51 @@ const DetalleProducto = () => {
         }
 
         agregarAlCarrito({ ...producto, cantidad });
-        toast.success('Producto agregado al carrito');
     }
+
+
+
+    const handleOpinionSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!usuario) {
+        toast.error("Debés iniciar sesión para opinar");
+        return;
+    }
+
+    if (!comentario || !calificacion) {
+        toast.error("Comentario y calificación requeridos");
+        return;
+    }
+
+    try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`http://localhost:3001/api/opiniones/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ comentario, calificacion })
+        });
+
+        if (res.ok) {
+            toast.success("Opinión enviada!");
+            setOpiniones(prev => [...prev, {
+                comentario,
+                calificacion,
+                nombre: usuario.nombre
+            }]);
+            setComentario('');
+            setCalificacion(5);
+        } else {
+            toast.error("Error al enviar opinión");
+        }
+
+    } catch (err) {
+        toast.error("Error al conectar con el servidor");
+    }
+};
 
     return (
         <div className="container my-5">
@@ -63,7 +122,12 @@ const DetalleProducto = () => {
 
             <div className="row d-flex flex-column flex-lg-row">
                 <div className="col-12 col-lg-6 d-flex justify-content-center mb-4">
-                    <img className="img-fluid" src={`/img/${producto.imagen}`} alt={producto.nombre} />
+                    <img
+                        className="img-fluid w-75"
+                        src={`/img/${producto.imagen}`}
+                        alt={producto.nombre}
+                        style={{ objectFit: "cover", aspectRatio: "1 / 1" }}
+                    />
                 </div>
 
                 <div className="col-12 col-lg-6 d-flex flex-column align-items-center align-items-lg-start">
@@ -77,10 +141,11 @@ const DetalleProducto = () => {
                             <p className="fw-semibold mb-0">{promedio.toFixed(1)}</p>
                         </div>
                         <p className="mb-0">
-                            {producto.reviews?.length > 0
-                                ? `${producto.reviews.length} opiniones`
+                            {opiniones.length > 0
+                                ? `${opiniones.length} opiniones`
                                 : 'Aún no hay opiniones'}
                         </p>
+
                     </div>
 
                     <div className="d-flex col-9 justify-content-between mt-2">
@@ -132,27 +197,45 @@ const DetalleProducto = () => {
                 <div className="col-10 mx-auto">
                     <h3>Opiniones</h3>
 
-                    {producto.reviews?.map((comentario, i) => (
-                        <div key={i} className="review-border rounded p-3 mb-3">
-                            <img
-                                className="col-4 col-md-2 col-lg-1"
-                                src={renderCalificacion(promedio)}
-                                alt={`Rating promedio: ${promedio}`}
-                            />
-                            <p className="mt-2">{comentario}</p>
-                        </div>
-                    ))}
+                    {opiniones.length > 0 ? (
+                        opiniones.map((op, i) => (
+                            <div key={i} className="review-border rounded p-3 mb-3">
+                                <img
+                                    className="col-4 col-md-2 col-lg-1"
+                                    src={renderCalificacion(op.calificacion)}
+                                    alt={`Rating: ${op.calificacion}`}
+                                />
+                                <p className="fw-bold mb-1">{op.nombre}</p>
+                                <p className="mb-0">{op.comentario}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Aún no hay opiniones</p>
+                    )}
+
 
                     <div className="mt-4">
                         <h3>Nueva opinión</h3>
-                        <form className="row">
+                        <form className="row" onSubmit={handleOpinionSubmit}>
                             <div className="col-12 col-md-9 mb-3">
                                 <label htmlFor="comment" className="form-label">Comentario:</label>
-                                <textarea className="form-control" id="comment" required></textarea>
+                                <textarea
+                                    className="form-control"
+                                    id="comment"
+                                    value={comentario}
+                                    onChange={(e) => setComentario(e.target.value)}
+                                    required
+                                ></textarea>
                             </div>
                             <div className="col-12 col-md-3 mb-3">
                                 <label htmlFor="rating" className="form-label">Puntaje:</label>
-                                <select className="form-control" id="rating" required>
+                                <select
+                                    className="form-control"
+                                    id="rating"
+                                    value={calificacion}
+                                    onChange={(e) => setCalificacion(Number(e.target.value))}
+                                    required
+                                >
                                     {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n}</option>)}
                                 </select>
                             </div>

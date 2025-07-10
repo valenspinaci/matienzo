@@ -9,9 +9,12 @@ const Home = () => {
     const [destacados, setDestacados] = useState([]);
 
     useEffect(() => {
-        const destacadosActuales = obtenerDestacados();
-        setDestacados(destacadosActuales);
-    }, [obtenerDestacados]);
+        fetch('http://localhost:3001/api/productos/destacados')
+            .then(res => res.json())
+            .then(setDestacados)
+            .catch(err => console.error(err));
+    }, []);
+
 
     return (
         <>

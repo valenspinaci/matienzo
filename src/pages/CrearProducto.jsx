@@ -19,26 +19,31 @@ const CrearProducto = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
-    e.preventDefault()
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const camposObligatorios = ['nombre', 'descripcion', 'precio', 'imagen', 'categoria']
-    for (const campo of camposObligatorios) {
-        if (!formData[campo]) {
-            alert(`El campo "${campo}" es obligatorio`)
-            return
+        const camposObligatorios = ['nombre', 'descripcion', 'precio', 'imagen', 'categoria'];
+        for (const campo of camposObligatorios) {
+            if (!formData[campo]) {
+                alert(`El campo "${campo}" es obligatorio`);
+                return;
+            }
         }
-    }
 
-    const productoAAgregar = {
-        ...formData,
-        calificaciones: [],
-        reviews: []
-    }
+        try {
+            await agregarProducto({
+                ...formData,
+                precio: parseFloat(formData.precio),
+                stock: formData.stock || 10,
+                colour: formData.colour || 'sin especificar',
+                origen: formData.origen || 'Argentina',
+            });
+            navigate('/admin');
+        } catch (err) {
+            console.error('Error al crear producto:', err);
+        }
+    };
 
-    agregarProducto(productoAAgregar)
-    navigate('/admin')
-};
 
     return (
         <div className="container my-5 d-flex flex-column justify-content-center align-items-center">
@@ -75,6 +80,21 @@ const CrearProducto = () => {
                         <option value="yerbas">Yerba</option>
                         <option value="accesorios">Accesorio</option>
                     </select>
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="stock" className="form-label">Stock:</label>
+                    <input type="number" name="stock" className="form-control inputs-background" id="stock" onChange={handleChange} />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="colour" className="form-label">Color:</label>
+                    <input type="text" name="colour" className="form-control inputs-background" id="colour" onChange={handleChange} />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="origen" className="form-label">Origen:</label>
+                    <input type="text" name="origen" className="form-control inputs-background" id="origen" onChange={handleChange} />
                 </div>
 
                 <button type="submit" className="btn boton-cta p-2 w-100">Agregar</button>

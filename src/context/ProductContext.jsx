@@ -1,49 +1,120 @@
-import { createContext, useEffect, useState } from "react"
-import productosJSON from "../data/productos.json"
-import { toast } from "react-toastify"
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-export const ProductContext = createContext()
+export const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-    const [productos, setProductos] = useState([])
+    const [productos, setProductos] = useState([]);
+
+    const fetchProductos = async () => {
+        try {
+            const res = await fetch("http://localhost:3001/api/productos");
+            const data = await res.json();
+            if (res.ok) {
+                setProductos(data);
+            } else {
+                toast.error("Error al obtener productos");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            toast.error("No se pudo conectar al servidor");
+        }
+    };
 
     useEffect(() => {
-        setProductos(productosJSON)
-    }, [])
+        fetchProductos();
+    }, []);
 
-    const obtenerProductos = () => productos
+    const obtenerProductos = () => productos;
 
     const obtenerDestacados = () => {
-        const promedio = (arr) => arr.reduce((acc, v) => acc + v, 0) / arr.length
+        const promedio = (arr) => arr.reduce((acc, v) => acc + v, 0) / arr.length;
         return [...productos]
-            .filter(p => p.calificaciones.length > 0)
-            .sort((a, b) => promedio(b.calificaciones) - promedio(a.calificaciones))
-            .slice(0, 3)
-    }
+            .filter(p => p.promedio !== undefined)
+            .sort((a, b) => b.promedio - a.promedio)
+            .slice(0, 3);
+    };
 
     const filtrarPorCategoria = (categoria) => {
-        if (!categoria || categoria === "todos") return productos
-        return productos.filter(p => p.categoria.toLowerCase() === categoria.toLowerCase())
-    }
+        if (!categoria || categoria === "todos") return productos;
+        return productos.filter(p => p.categoria.toLowerCase() === categoria.toLowerCase());
+    };
 
-    const agregarProducto = (nuevoProducto) => {
-        const idNuevo = Math.max(...productos.map(p => p.id)) + 1
-        const producto = { ...nuevoProducto, id: idNuevo }
-        setProductos(prev => [...prev, producto])
-        toast.success('Producto creado correctamente');
-    }
+    const agregarProducto = async (nuevoProducto) => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch("http://localhost:3001/api/productos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(nuevoProducto)
+            });
 
-    const editarProducto = (id, data) => {
+            const data = await res.json();
+            if (res.ok) {
+                setProductos(prev => [...prev, data]);
+                toast.success("Producto creado correctamente");
+            } else {
+                toast.error(data.message || "Error al crear producto");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("No se pudo crear el producto");
+        }
+    };
+
+const editarProducto = async (id, data) => {
+    try {
+        const token = localStorage.getItem("token");
+
+        const res = await fetch(`http://localhost:3001/api/productos/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!res.ok) throw new Error("Error al editar producto");
+
+        const productoActualizado = { id, ...data };
+
         setProductos(prev =>
-            prev.map(p => (p.id === id ? { ...p, ...data } : p))
-        )
-        toast.success('Producto actualizado');
-    }
+            prev.map(p => (p.id === id ? productoActualizado : p))
+        );
 
-    const eliminarProducto = (id) => {
-        setProductos(prev => prev.filter(p => p.id !== id))
-        toast.success('Producto eliminado');
+        toast.success("Producto actualizado");
+    } catch (err) {
+        console.error(err);
+        toast.error("No se pudo actualizar el producto");
     }
+};
+
+
+    const eliminarProducto = async (id) => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:3001/api/productos/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (res.ok) {
+                setProductos(prev => prev.filter(p => p.id !== id));
+                toast.success("Producto eliminado");
+            } else {
+                toast.error("Error al eliminar producto");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Error al conectar con el servidor");
+        }
+    };
 
     return (
         <ProductContext.Provider
@@ -54,10 +125,12 @@ export const ProductProvider = ({ children }) => {
                 filtrarPorCategoria,
                 agregarProducto,
                 editarProducto,
-                eliminarProducto
+                eliminarProducto,
+                fetchProductos
             }}
         >
             {children}
         </ProductContext.Provider>
-    )
-}
+    );
+};
+

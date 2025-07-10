@@ -12,32 +12,11 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch('http://localhost:3001/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Error al iniciar sesión');
+            e.preventDefault();
+            const exito = await login(email, password);
+            if (exito) {
+                navigate("/");
             }
-
-            if (data.token) {
-                login(data.token); // actualiza el contexto con el token
-                toast.success('¡Inicio de sesión exitoso!');
-                navigate('/');
-            }
-        } catch (err) {
-            setError(err.message);
-            toast.error(err.message);
-        }
     };
 
     return (

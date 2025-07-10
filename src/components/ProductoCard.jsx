@@ -1,15 +1,13 @@
 import { Link } from 'react-router-dom'
 
 const ProductoCard = ({ producto }) => {
-    const promedio = producto.calificaciones?.length > 0
-        ? producto.calificaciones.reduce((a, b) => a + b, 0) / producto.calificaciones.length
-        : 4
+    const promedio = producto.total_opiniones > 0 ? producto.promedio : 4;
 
     const renderCalificacion = (rating) => {
-        if (rating <= 1) return '/img/1estrellas.png'
-        if (rating <= 2) return '/img/2estrellas.png'
-        if (rating <= 3) return '/img/3estrellas.png'
-        if (rating <= 4) return '/img/4estrellas.png'
+        if (rating <= 1.5) return '/img/1estrellas.png'
+        if (rating <= 2.5) return '/img/2estrellas.png'
+        if (rating <= 3.5) return '/img/3estrellas.png'
+        if (rating <= 4.5) return '/img/4estrellas.png'
         return '/img/5estrellas.png'
     }
 
@@ -21,7 +19,12 @@ const ProductoCard = ({ producto }) => {
 
             <h4>{producto.nombre.charAt(0).toUpperCase() + producto.nombre.slice(1)}</h4>
 
-            <img className="w-25" src={renderCalificacion(promedio)} alt={`Calificación ${promedio}`} />
+            <div className="d-flex align-items-center gap-2 mb-2">
+                <img className="w-25" src={renderCalificacion(promedio)} alt={`Calificación ${promedio}`} />
+                {producto.total_opiniones > 0 && (
+                    <small>({producto.total_opiniones})</small>
+                )}
+            </div>
 
             <p className="fs-4 fw-semibold">${producto.precio}</p>
 

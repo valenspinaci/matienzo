@@ -1,18 +1,25 @@
-import { useContext, useEffect, useState } from "react";
-import { ProductContext } from "../context/ProductContext";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductoCard from "../components/ProductoCard";
 import fotoProductos from "../assets/img/foto-productos.png";
 
 const Productos = () => {
-    const { productos } = useContext(ProductContext);
-
+    const [productosOriginales, setProductosOriginales] = useState([]);
     const [productosFiltrados, setProductosFiltrados] = useState([]);
     const [categoria, setCategoria] = useState("todos");
     const [orden, setOrden] = useState("default");
 
     useEffect(() => {
-        let filtrados = [...productos];
+        fetch("http://localhost:3001/api/productos")
+            .then((res) => res.json())
+            .then((data) => {
+                setProductosOriginales(data);
+            })
+            .catch((err) => console.error("Error al cargar productos:", err));
+    }, []);
+
+    useEffect(() => {
+        let filtrados = [...productosOriginales];
 
         if (categoria !== "todos") {
             filtrados = filtrados.filter(
@@ -34,18 +41,14 @@ const Productos = () => {
                 filtrados.sort((a, b) => b.nombre.localeCompare(a.nombre));
                 break;
             case "calificacion":
-                filtrados.sort((a, b) => {
-                    const promA =
-                        a.calificaciones.reduce((x, y) => x + y, 0) / a.calificaciones.length;
-                    const promB =
-                        b.calificaciones.reduce((x, y) => x + y, 0) / b.calificaciones.length;
-                    return promB - promA;
-                });
+                filtrados.sort((a, b) => (b.promedio || 0) - (a.promedio || 0));
+                break;
+            default:
                 break;
         }
 
         setProductosFiltrados(filtrados);
-    }, [productos, categoria, orden]);
+    }, [productosOriginales, categoria, orden]);
 
     const contadorProductos = () => {
         const count = productosFiltrados.length;
@@ -96,42 +99,27 @@ const Productos = () => {
                     </button>
                     <ul className="dropdown-menu background-dropdown">
                         <li>
-                            <button
-                                className="dropdown-item"
-                                onClick={() => setOrden("precio-asc")}
-                            >
+                            <button className="dropdown-item" onClick={() => setOrden("precio-asc")}>
                                 Menor precio
                             </button>
                         </li>
                         <li>
-                            <button
-                                className="dropdown-item"
-                                onClick={() => setOrden("precio-desc")}
-                            >
+                            <button className="dropdown-item" onClick={() => setOrden("precio-desc")}>
                                 Mayor precio
                             </button>
                         </li>
                         <li>
-                            <button
-                                className="dropdown-item"
-                                onClick={() => setOrden("nombre-asc")}
-                            >
+                            <button className="dropdown-item" onClick={() => setOrden("nombre-asc")}>
                                 Nombre A-Z
                             </button>
                         </li>
                         <li>
-                            <button
-                                className="dropdown-item"
-                                onClick={() => setOrden("nombre-desc")}
-                            >
+                            <button className="dropdown-item" onClick={() => setOrden("nombre-desc")}>
                                 Nombre Z-A
                             </button>
                         </li>
                         <li>
-                            <button
-                                className="dropdown-item"
-                                onClick={() => setOrden("calificacion")}
-                            >
+                            <button className="dropdown-item" onClick={() => setOrden("calificacion")}>
                                 Mejor calificados
                             </button>
                         </li>
@@ -148,10 +136,7 @@ const Productos = () => {
                     <div className="col-12 col-md-4 col-lg-3 mx-auto d-flex flex-column align-items-center justify-content-center">
                         <h3>¡Lo sentimos!</h3>
                         <p>No existen productos de esta categoría</p>
-                        <Link
-                            className="text-decoration-none color-texto-producto"
-                            to="/productos"
-                        >
+                        <Link className="text-decoration-none color-texto-producto" to="/productos">
                             <button className="btn boton-cta p-2 w-100">Ver otros</button>
                         </Link>
                     </div>

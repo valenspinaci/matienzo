@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
 
 const Registro = () => {
+
+    const { register } = useContext(AuthContext);
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         nombre: "",
@@ -21,35 +24,22 @@ const Registro = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const exito = await register({
+            nombre: formData.nombre,
+            apellido: formData.apellido,
+            telefono: formData.telefono,
+            email: formData.email,
+            password: formData.password
+        });
+
+
         if (formData.password !== formData.confirmarPassword) {
             toast.error("Las contraseñas no coinciden");
             return;
         }
 
-        try {
-            const response = await fetch("http://localhost:3001/api/auth/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    nombre: formData.nombre,
-                    apellido: formData.apellido,
-                    telefono: formData.telefono,
-                    email: formData.email,
-                    password: formData.password,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                toast.success("Registro exitoso. Iniciá sesión.");
-                navigate("/login");
-            } else {
-                toast.error(data?.msg || "Error al registrar");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            toast.error("Hubo un problema al registrar");
+        if (exito) {
+            navigate("/");
         }
     };
 
