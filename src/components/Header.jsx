@@ -54,7 +54,6 @@ const Header = () => {
                                 </Link>
                             </li>
 
-                            {/* Mobile: opciones según estado de login */}
                             {!usuario && (
                                 <li className="nav-item mx-2 d-lg-none">
                                     <Link className="text-decoration-none color-texto-navbar" to="/login">

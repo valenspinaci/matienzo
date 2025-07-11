@@ -5,7 +5,6 @@ import ProductoCard from "../components/ProductoCard";
 import fotoInicio from "../assets/img/foto-inicio.png";
 
 const Home = () => {
-    const { obtenerDestacados } = useContext(ProductContext);
     const [destacados, setDestacados] = useState([]);
 
     useEffect(() => {

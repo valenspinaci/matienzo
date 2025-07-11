@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { toast } from 'react-toastify';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -12,11 +11,11 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-            e.preventDefault();
-            const exito = await login(email, password);
-            if (exito) {
-                navigate("/");
-            }
+        e.preventDefault();
+        const exito = await login(email, password);
+        if (exito) {
+            navigate("/");
+        }
     };
 
     return (
@@ -98,6 +97,16 @@ const Login = () => {
                                     </div>
                                 </div>
                             </form>
+
+                            <div className="text-center mt-3">
+                                <p className="text-light">
+                                    ¿No tenés una cuenta?{" "}
+                                    <a className="text-warning text-decoration-underline" onClick={() => navigate("/registro")} role="button">
+                                        Registrate
+                                    </a>
+                                </p>
+                            </div>
+
                         </div>
                     </div>
                 </div>

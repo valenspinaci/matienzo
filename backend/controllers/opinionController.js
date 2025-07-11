@@ -33,7 +33,7 @@ exports.crearOpinion = async (req, res) => {
             VALUES (?, ?, ?, ?)
         `;
 
-        await db.query(sql, [id, usuarioId, comentario, calificacion]); // <- devuelve promesa
+        await db.query(sql, [id, usuarioId, comentario, calificacion]);
         res.status(201).json({ msg: 'Opinión registrada correctamente' });
 
     } catch (error) {

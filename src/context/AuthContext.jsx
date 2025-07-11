@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [usuario, setUsuario] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -16,9 +17,9 @@ export const AuthProvider = ({ children }) => {
             } catch (e) {
                 console.error("Token inválido:", e);
                 localStorage.removeItem("token");
-                setUsuario(null);
             }
         }
+        setLoading(false);
     }, []);
 
 const login = async (email, password) => {
@@ -81,7 +82,7 @@ const login = async (email, password) => {
     };
 
     return (
-        <AuthContext.Provider value={{ usuario, login, register, logout }}>
+        <AuthContext.Provider value={{ usuario, login, register, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

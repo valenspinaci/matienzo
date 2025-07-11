@@ -8,7 +8,6 @@ import { toast } from 'react-toastify'
 
 const DetalleProducto = () => {
     const { id } = useParams()
-    const { productos } = useContext(ProductContext)
     const { agregarAlCarrito } = useContext(CartContext)
     const { usuario } = useContext(AuthContext)
     const { opiniones, fetchOpiniones, crearOpinion, loading } = useContext(OpinionContext)
@@ -17,6 +16,7 @@ const DetalleProducto = () => {
     const [cantidad, setCantidad] = useState(1)
     const [comentario, setComentario] = useState('')
     const [calificacion, setCalificacion] = useState(5)
+    const [vendidosFijos, setVendidosFijos] = useState(0)
 
     useEffect(() => {
         const obtenerProducto = async () => {
@@ -24,6 +24,8 @@ const DetalleProducto = () => {
                 const res = await fetch(`http://localhost:3001/api/productos/${id}`)
                 const data = await res.json()
                 setProducto(data)
+                setVendidosFijos(data.vendidos ?? Math.floor(Math.random() * 100))
+
             } catch (err) {
                 console.error('Error al cargar el producto', err)
                 toast.error("No se pudo cargar el producto")
@@ -121,7 +123,7 @@ const DetalleProducto = () => {
                     </div>
 
                     <div className="d-flex col-9 justify-content-between mt-2">
-                        <p className="mb-0">{producto.vendidos || Math.floor(Math.random() * 100)} vendidos</p>
+                        <p className="mb-0">{vendidosFijos} vendidos</p>
                         <p className={`mb-0 ${producto.stock > 0 ? '' : 'text-success'}`}>
                             {producto.stock > 0 ? 'En stock' : 'En stock'}
                         </p>

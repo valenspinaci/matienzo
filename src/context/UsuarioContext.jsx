@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 export const UsuarioContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const { usuario } = useContext(AuthContext);
     const [perfil, setPerfil] = useState(null);
     const [loading, setLoading] = useState(false);
 

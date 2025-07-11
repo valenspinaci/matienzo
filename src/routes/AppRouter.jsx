@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { useContext } from 'react';
 import Home from '../pages/Home';
 import Productos from '../pages/Productos';
 import Perfil from '../pages/Perfil';
@@ -11,10 +10,8 @@ import Login from '../pages/Login';
 import Registro from '../pages/Registro';
 import CrearProducto from '../pages/CrearProducto';
 import ProtectedRoute from './ProtectedRoute';
-import { AuthContext } from '../context/AuthContext';
 
 const AppRouter = () => {
-    const { usuario } = useContext(AuthContext);
 
     return (
         <Routes>
@@ -25,7 +22,6 @@ const AppRouter = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/registro' element={<Registro />} />
 
-
             <Route
                 path='/perfil'
                 element={
@@ -34,6 +30,7 @@ const AppRouter = () => {
                     </ProtectedRoute>
                 }
             />
+
             <Route
                 path='/carrito'
                 element={

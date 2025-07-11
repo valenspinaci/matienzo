@@ -23,7 +23,6 @@ const Registro = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const exito = await register({
             nombre: formData.nombre,
             apellido: formData.apellido,

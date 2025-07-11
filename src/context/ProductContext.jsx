@@ -28,7 +28,6 @@ export const ProductProvider = ({ children }) => {
     const obtenerProductos = () => productos;
 
     const obtenerDestacados = () => {
-        const promedio = (arr) => arr.reduce((acc, v) => acc + v, 0) / arr.length;
         return [...productos]
             .filter(p => p.promedio !== undefined)
             .sort((a, b) => b.promedio - a.promedio)
