@@ -8,16 +8,22 @@ import './assets/css/style.css'
 import { CartProvider } from './context/CartContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ProductProvider } from './context/ProductContext.jsx';
+import { UserProvider } from './context/UsuarioContext.jsx';
+import { OpinionProvider } from './context/OpinionContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
+        <UserProvider>
         <ProductProvider>
           <CartProvider>
-            <App />
+            <OpinionProvider>
+              <App />
+            </OpinionProvider>
           </CartProvider>
         </ProductProvider>
+        </UserProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

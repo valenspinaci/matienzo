@@ -40,30 +40,35 @@ export const ProductProvider = ({ children }) => {
         return productos.filter(p => p.categoria.toLowerCase() === categoria.toLowerCase());
     };
 
-    const agregarProducto = async (nuevoProducto) => {
-        try {
-            const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3001/api/productos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(nuevoProducto)
-            });
+const agregarProducto = async (nuevoProducto) => {
+    try {
+        const token = localStorage.getItem('token');
 
-            const data = await res.json();
-            if (res.ok) {
-                setProductos(prev => [...prev, data]);
-                toast.success("Producto creado correctamente");
-            } else {
-                toast.error(data.message || "Error al crear producto");
-            }
-        } catch (error) {
-            console.error(error);
-            toast.error("No se pudo crear el producto");
+        const res = await fetch('http://localhost:3001/api/productos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(nuevoProducto)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data?.msg || 'Error al crear producto');
         }
-    };
+
+        const resActualizado = await fetch('http://localhost:3001/api/productos');
+        const productosActualizados = await resActualizado.json();
+        setProductos(productosActualizados);
+
+        toast.success('Producto creado correctamente');
+    } catch (error) {
+        console.error('Error al agregar producto:', error);
+        toast.error('No se pudo crear el producto');
+    }
+};
 
 const editarProducto = async (id, data) => {
     try {

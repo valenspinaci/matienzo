@@ -3,43 +3,40 @@ import { useEffect, useState, useContext } from 'react'
 import { CartContext } from '../context/CartContext'
 import { ProductContext } from '../context/ProductContext'
 import { AuthContext } from '../context/AuthContext'
-import { toast } from 'react-toastify';
+import { OpinionContext } from '../context/OpinionContext'
+import { toast } from 'react-toastify'
 
 const DetalleProducto = () => {
     const { id } = useParams()
     const { productos } = useContext(ProductContext)
     const { agregarAlCarrito } = useContext(CartContext)
-    const { usuario } = useContext(AuthContext);
+    const { usuario } = useContext(AuthContext)
+    const { opiniones, fetchOpiniones, crearOpinion, loading } = useContext(OpinionContext)
 
     const [producto, setProducto] = useState(null)
     const [cantidad, setCantidad] = useState(1)
-    const [opiniones, setOpiniones] = useState([]);
-    const [comentario, setComentario] = useState('');
-    const [calificacion, setCalificacion] = useState(5);
+    const [comentario, setComentario] = useState('')
+    const [calificacion, setCalificacion] = useState(5)
 
     useEffect(() => {
-        const fetchData = async () => {
+        const obtenerProducto = async () => {
             try {
-                const resProducto = await fetch(`http://localhost:3001/api/productos/${id}`);
-                const productoData = await resProducto.json();
-                setProducto(productoData);
-
-                const resOpiniones = await fetch(`http://localhost:3001/api/opiniones/${id}`);
-                const opinionesData = await resOpiniones.json();
-                setOpiniones(opinionesData);
-            } catch (error) {
-                console.error('Error al cargar datos del producto', error);
-                toast.error('No se pudo cargar el producto');
+                const res = await fetch(`http://localhost:3001/api/productos/${id}`)
+                const data = await res.json()
+                setProducto(data)
+            } catch (err) {
+                console.error('Error al cargar el producto', err)
+                toast.error("No se pudo cargar el producto")
             }
-        };
+        }
 
-        fetchData();
-    }, [id]);
+        obtenerProducto()
+        fetchOpiniones(id)
+    }, [id])
 
-
-    if (!producto) return <p className="container my-5">Cargando producto...</p>
-
-    const promedio = opiniones.length > 0 ? opiniones.reduce((sum, op) => sum + op.calificacion, 0) / opiniones.length : 0;
+    const promedio = opiniones.length > 0
+        ? opiniones.reduce((sum, o) => sum + o.calificacion, 0) / opiniones.length
+        : 0
 
     const renderCalificacion = (rating) => {
         if (rating <= 1) return '/img/1estrellas.png'
@@ -51,56 +48,32 @@ const DetalleProducto = () => {
 
     const handleAgregar = () => {
         if (!usuario || usuario.rol !== 'cliente') {
-            toast.error('Debés iniciar sesión para agregar al carrito');
-            return;
+            toast.error('Debés iniciar sesión para agregar al carrito')
+            return
         }
 
-        agregarAlCarrito({ ...producto, cantidad });
+        agregarAlCarrito({ ...producto, cantidad })
     }
-
-
 
     const handleOpinionSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault()
 
-    if (!usuario) {
-        toast.error("Debés iniciar sesión para opinar");
-        return;
-    }
-
-    if (!comentario || !calificacion) {
-        toast.error("Comentario y calificación requeridos");
-        return;
-    }
-
-    try {
-        const token = localStorage.getItem('token');
-        const res = await fetch(`http://localhost:3001/api/opiniones/${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({ comentario, calificacion })
-        });
-
-        if (res.ok) {
-            toast.success("Opinión enviada!");
-            setOpiniones(prev => [...prev, {
-                comentario,
-                calificacion,
-                nombre: usuario.nombre
-            }]);
-            setComentario('');
-            setCalificacion(5);
-        } else {
-            toast.error("Error al enviar opinión");
+        if (!usuario) {
+            toast.error("Debés iniciar sesión para opinar")
+            return
         }
 
-    } catch (err) {
-        toast.error("Error al conectar con el servidor");
+        if (!comentario || !calificacion) {
+            toast.error("Comentario y calificación requeridos")
+            return
+        }
+
+        await crearOpinion(id, comentario, calificacion, usuario.nombre)
+        setComentario('')
+        setCalificacion(5)
     }
-};
+
+    if (!producto) return <p className="container my-5">Cargando producto...</p>
 
     return (
         <div className="container my-5">
@@ -145,7 +118,6 @@ const DetalleProducto = () => {
                                 ? `${opiniones.length} opiniones`
                                 : 'Aún no hay opiniones'}
                         </p>
-
                     </div>
 
                     <div className="d-flex col-9 justify-content-between mt-2">
@@ -164,23 +136,22 @@ const DetalleProducto = () => {
                         <p className="fw-bold">{producto.descripcion}</p>
                     </div>
 
-                    {usuario?.rol !== 'admin' &&
-                        (
-                            <div className="col-9 mt-3 mb-4">
-                                <label htmlFor="cantidad" className="form-label">Cantidad:</label>
-                                <input
-                                    type="number"
-                                    id="cantidad"
-                                    className="form-control"
-                                    min="1"
-                                    max={producto.stock}
-                                    value={cantidad}
-                                    onChange={e => setCantidad(parseInt(e.target.value))}
-                                    placeholder={`${producto.stock} disponibles`}
-                                    required
-                                />
-                            </div>
-                        )}
+                    {usuario?.rol !== 'admin' && (
+                        <div className="col-9 mt-3 mb-4">
+                            <label htmlFor="cantidad" className="form-label">Cantidad:</label>
+                            <input
+                                type="number"
+                                id="cantidad"
+                                className="form-control"
+                                min="1"
+                                max={producto.stock}
+                                value={cantidad}
+                                onChange={e => setCantidad(parseInt(e.target.value))}
+                                placeholder={`${producto.stock} disponibles`}
+                                required
+                            />
+                        </div>
+                    )}
 
                     {usuario?.rol !== 'admin' && (
                         <div className="col-9 mb-5 d-flex gap-2">
@@ -189,7 +160,6 @@ const DetalleProducto = () => {
                             </button>
                         </div>
                     )}
-
                 </div>
             </div>
 
@@ -197,7 +167,9 @@ const DetalleProducto = () => {
                 <div className="col-10 mx-auto">
                     <h3>Opiniones</h3>
 
-                    {opiniones.length > 0 ? (
+                    {loading ? (
+                        <p>Cargando opiniones...</p>
+                    ) : opiniones.length > 0 ? (
                         opiniones.map((op, i) => (
                             <div key={i} className="review-border rounded p-3 mb-3">
                                 <img
@@ -212,7 +184,6 @@ const DetalleProducto = () => {
                     ) : (
                         <p>Aún no hay opiniones</p>
                     )}
-
 
                     <div className="mt-4">
                         <h3>Nueva opinión</h3>
@@ -236,7 +207,9 @@ const DetalleProducto = () => {
                                     onChange={(e) => setCalificacion(Number(e.target.value))}
                                     required
                                 >
-                                    {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n}</option>)}
+                                    {[1, 2, 3, 4, 5].map(n => (
+                                        <option key={n} value={n}>{n}</option>
+                                    ))}
                                 </select>
                             </div>
                             <div className="col-12">
