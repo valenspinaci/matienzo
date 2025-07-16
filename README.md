@@ -1,12 +1,29 @@
-# React + Vite
+# 🧉 Matienzo - E-commerce Fullstack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Matienzo** es una tienda online desarrollada con **React**, **Node.js**, **Express** y **MySQL** que permite a los usuarios navegar productos, dejar opiniones, gestionar su carrito de compras y realizar pedidos. Incluye un panel de administración con funcionalidades de gestión para productos y usuarios.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend:** React JS, React Router, Context API, Bootstrap, Toastify
+- **Backend:** Node.js, Express, JWT, Bcrypt, MySQL
+- **Base de datos:** MySQL
+- **Autenticación:** JWT con control de acceso por roles (cliente/admin)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧩 Funcionalidades
+
+### Cliente
+
+- Registro e inicio de sesión
+- Navegación de productos con filtro por categoría
+- Visualización de detalles del producto con promedio de calificaciones y opiniones
+- Opiniones públicas con validación de usuario
+- Carrito de compras persistente
+- Gestión de perfil (nombre, apellido, email, teléfono)
+
+### Administrador
+
+- Panel exclusivo con autenticación por rol
+- Listado de productos con opción de editar/eliminar
+- Creación de nuevos productos
